@@ -8,8 +8,8 @@ import { errorHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import leaveRoutes from './routes/leaveRoutes';
-import attendanceRoutes from './routes/attendanceRoutes';
-import teamRoutes from './routes/teamRoutes';
+//import attendanceRoutes from './routes/attendanceRoutes';
+//import teamRoutes from './routes/teamRoutes';
 
 export class App {
   public app: Application;
@@ -51,8 +51,8 @@ export class App {
     this.app.use('/api/auth', authRoutes);
     this.app.use('/api/users', userRoutes);
     this.app.use('/api/leaves', leaveRoutes);
-    this.app.use('/api/attendance', attendanceRoutes);
-    this.app.use('/api/teams', teamRoutes);
+    //this.app.use('/api/attendance', attendanceRoutes);
+    //this.app.use('/api/teams', teamRoutes);
 
     // 404 handler
     this.app.use((req: Request, res: Response) => {

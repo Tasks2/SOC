@@ -125,7 +125,7 @@ const Dashboard = () => {
               <Calendar className="h-4 w-4 mr-2" />
               Request Leave
             </Button>
-            <Button variant="outline" className="w-full justify-start border-green-200" >
+            <Button variant="outline" className="w-full justify-start border-green-200"  onClick={() => navigate("/attendance")}>
               <ClipboardList className="h-4 w-4 mr-2" />
               View My Tasks
             </Button>

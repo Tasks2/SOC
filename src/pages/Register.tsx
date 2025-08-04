@@ -14,10 +14,10 @@ const Register = () => {
     firstName: "",
     lastName: "",
     email: "",
+    username: "",
     password: "",
     confirmPassword: "",
     role: "",
-    // employeeId: "",
     department: ""
   });
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const Register = () => {
     }
 
     // Validate all fields
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.role ) {
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.role ||!formData.username ) {
       toast({
         title: "Registration Failed",
         description: "Please fill in all required fields",
@@ -67,13 +67,14 @@ const Register = () => {
     try {
     await new Promise(resolve => setTimeout(resolve, 1500)); // Simulated delay
 
-    const response = await fetch("http://localhost:5173/api/auth/register", {
+    const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
+        username: formData.username,
         password: formData.password,
         role: formData.role,
         department: formData.department,
@@ -212,21 +213,21 @@ const Register = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* <div className="space-y-2">
-                <Label htmlFor="employeeId">Employee ID *</Label>
+              {<div className="space-y-2">
+                <Label htmlFor="username">User Name *</Label>
                 <div className="relative">
                   <UserCheck className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
-                    id="employeeId"
+                    id="username"
                     type="text"
-                    placeholder="Enter your employee ID"
-                    value={formData.employeeId}
-                    onChange={(e) => handleInputChange('employeeId', e.target.value)}
+                    placeholder="Choose a username"
+                    value={formData.username}
+                    onChange={(e) => handleInputChange('username', e.target.value)}
                     className="pl-10"
                     required
                   />
                 </div>
-              </div> */}
+              </div> }
               <div className="space-y-2">
                 <Label htmlFor="role">Role *</Label>
                 <Select value={formData.role} onValueChange={(value) => handleInputChange('role', value)}>

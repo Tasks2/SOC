@@ -2,7 +2,7 @@
 
 // // You can use environment variables or hardcode for testing
 // const sequelize = new Sequelize(
-//   process.env.DB_NAME || "soc_duty_flow",
+//   process.env.DB_NAME || "soc_duty",
 //   process.env.DB_USER || "root",
 //   process.env.DB_PASSWORD || "",
 //   {
