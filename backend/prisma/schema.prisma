@@ -9,53 +9,28 @@ datasource db {
 }
 
 model User {
-  id           String       @id @default(uuid())
-  username     String       @unique  
-  email        String       @unique
+  id           String         @id @default(uuid())
+  username     String         @unique  
+  email        String         @unique
   firstName    String
   lastName     String
-  password     String       // <-- Added
-  role         String       // <-- Added (e.g., "user", "admin")
-  department   String       // <-- Added
-  managedTeams Team[]       @relation("TeamManager")
-  teams        TeamMember[]
-  leaveRequests LeaveRequest[] @relation("UserLeaveRequests") //
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-}
-
-model Team {
-  id          String        @id @default(uuid())
-  name        String
-  manager     User          @relation("TeamManager", fields: [managerId], references: [id])
-  managerId   String
-  leaveRequests LeaveRequest[] @relation("TeamLeaveRequests") // <-- Add 
-  members     TeamMember[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-}
-
-model TeamMember {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  teamId    String
-  team      Team     @relation(fields: [teamId], references: [id])
-  joinedAt  DateTime @default(now())
-  isActive  Boolean  @default(true)
-  
-  @@unique([userId, teamId])
+  password     String         // <-- Added
+  role         String         // <-- Added (e.g., "user", "admin")
+  department   String         // <-- Added
+  leaveRequests LeaveRequest[] @relation("UserLeaveRequests")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 }
 
 model LeaveRequest {
   id          String     @id @default(uuid())
   userId      String
   user        User       @relation("UserLeaveRequests", fields: [userId], references: [id])
-  teamId      String
-  team        Team       @relation("TeamLeaveRequests", fields: [teamId], references: [id])
+  
   startDate   DateTime
   endDate     DateTime
   reason      String
+  type        String
   status      String     @default("PENDING") // PENDING, APPROVED, REJECTED
   approvedBy  String?    // User ID of the approver
   comments    String?
@@ -68,13 +43,13 @@ model Attachment {
   id              String       @id @default(uuid())
   filename        String
   originalName    String
-  mimeType       String
-  size           Int          // Size in bytes
-  path           String       // Storage path
-  leaveRequestId String?
-  leaveRequest   LeaveRequest? @relation(fields: [leaveRequestId], references: [id])
-  uploadedBy     String       // User ID
-  uploadedAt     DateTime     @default(now())
+  mimeType        String
+  size            Int          // Size in bytes
+  path            String       // Storage path
+  leaveRequestId  String?
+  leaveRequest    LeaveRequest? @relation(fields: [leaveRequestId], references: [id])
+  uploadedBy      String       // User ID
+  uploadedAt      DateTime     @default(now())
 }
 
 model Task {
