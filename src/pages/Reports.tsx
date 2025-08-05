@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Calendar, BarChart3, Users, TrendingUp } from "lucide-react";
+import { Download, BarChart3, TrendingUp } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const Reports = () => {
@@ -38,13 +37,6 @@ const Reports = () => {
     { month: "Apr", present: 87, absent: 10, leave: 28 },
     { month: "May", present: 89, absent: 9, leave: 24 },
     { month: "Jun", present: 91, absent: 7, leave: 20 },
-  ];
-
-  const teamPerformance = [
-    { name: "Alpha Team", attendance: 95, efficiency: "Excellent" },
-    { name: "Beta Team", attendance: 88, efficiency: "Good" },
-    { name: "Gamma Team", attendance: 92, efficiency: "Excellent" },
-    { name: "Delta Team", attendance: 85, efficiency: "Good" },
   ];
 
   return (
@@ -82,7 +74,7 @@ const Reports = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
             <Card>
               <CardHeader>
                 <CardTitle>Monthly Attendance Trends</CardTitle>
@@ -98,28 +90,6 @@ const Reports = () => {
                         <span className="text-red-600">Absent: {month.absent}%</span>
                         <span className="text-yellow-600">Leave: {month.leave}%</span>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Team Performance</CardTitle>
-                <CardDescription>Current month statistics</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {teamPerformance.map((team) => (
-                    <div key={team.name} className="flex items-center justify-between p-3 bg-muted rounded-lg">
-                      <div>
-                        <p className="font-medium">{team.name}</p>
-                        <p className="text-sm text-muted-foreground">{team.attendance}% attendance</p>
-                      </div>
-                      <Badge className={team.efficiency === 'Excellent' ? 'bg-green-500' : 'bg-blue-500'}>
-                        {team.efficiency}
-                      </Badge>
                     </div>
                   ))}
                 </div>
@@ -147,11 +117,10 @@ const Reports = () => {
                       <SelectItem value="weekly">Weekly Summary</SelectItem>
                       <SelectItem value="monthly">Monthly Report</SelectItem>
                       <SelectItem value="leave">Leave Analysis</SelectItem>
-                      <SelectItem value="team">Team Performance</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="startDate">Start Date</Label>
                   <Input
@@ -161,7 +130,7 @@ const Reports = () => {
                     onChange={(e) => setDateRange(prev => ({ ...prev, startDate: e.target.value }))}
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="endDate">End Date</Label>
                   <Input
@@ -195,7 +164,6 @@ const Reports = () => {
               <div className="space-y-3">
                 {[
                   { name: "Monthly Attendance - December 2023", date: "2024-01-01", type: "PDF" },
-                  { name: "Team Performance Report", date: "2023-12-28", type: "Excel" },
                   { name: "Leave Analysis - Q4 2023", date: "2023-12-25", type: "PDF" },
                   { name: "Weekly Summary - Week 52", date: "2023-12-22", type: "PDF" },
                 ].map((report, index) => (
@@ -228,51 +196,23 @@ const Reports = () => {
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold">Attendance Patterns</h3>
                   <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span>Monday</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '85%' }}></div>
+                    {[
+                      { day: "Monday", percent: 85 },
+                      { day: "Tuesday", percent: 92 },
+                      { day: "Wednesday", percent: 88 },
+                      { day: "Thursday", percent: 90 },
+                      { day: "Friday", percent: 78 },
+                    ].map(({ day, percent }) => (
+                      <div key={day} className="flex justify-between">
+                        <span>{day}</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-20 bg-gray-200 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: `${percent}%` }}></div>
+                          </div>
+                          <span className="text-sm">{percent}%</span>
                         </div>
-                        <span className="text-sm">85%</span>
                       </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Tuesday</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '92%' }}></div>
-                        </div>
-                        <span className="text-sm">92%</span>
-                      </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Wednesday</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '88%' }}></div>
-                        </div>
-                        <span className="text-sm">88%</span>
-                      </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Thursday</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '90%' }}></div>
-                        </div>
-                        <span className="text-sm">90%</span>
-                      </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Friday</span>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 bg-gray-200 rounded-full h-2">
-                          <div className="bg-green-500 h-2 rounded-full" style={{ width: '78%' }}></div>
-                        </div>
-                        <span className="text-sm">78%</span>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
