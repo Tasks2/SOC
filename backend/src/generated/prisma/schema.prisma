@@ -17,45 +17,21 @@ model User {
   password      String // <-- Added
   role          String // <-- Added (e.g., "user", "admin")
   department    String // <-- Added
-  managedTeams  Team[]         @relation("TeamManager")
-  teams         TeamMember[]
-  leaveRequests LeaveRequest[] @relation("UserLeaveRequests") //
+  leaveRequests LeaveRequest[] @relation("UserLeaveRequests")
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-}
-
-model Team {
-  id            String         @id @default(uuid())
-  name          String
-  manager       User           @relation("TeamManager", fields: [managerId], references: [id])
-  managerId     String
-  leaveRequests LeaveRequest[] @relation("TeamLeaveRequests") // <-- Add 
-  members       TeamMember[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-}
-
-model TeamMember {
-  id       String   @id @default(uuid())
-  userId   String
-  user     User     @relation(fields: [userId], references: [id])
-  teamId   String
-  team     Team     @relation(fields: [teamId], references: [id])
-  joinedAt DateTime @default(now())
-  isActive Boolean  @default(true)
-
-  @@unique([userId, teamId])
+  attendances   Attendance[]
 }
 
 model LeaveRequest {
-  id          String       @id @default(uuid())
-  userId      String
-  user        User         @relation("UserLeaveRequests", fields: [userId], references: [id])
-  teamId      String
-  team        Team         @relation("TeamLeaveRequests", fields: [teamId], references: [id])
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation("UserLeaveRequests", fields: [userId], references: [id])
+
   startDate   DateTime
   endDate     DateTime
   reason      String
+  type        String
   status      String       @default("PENDING") // PENDING, APPROVED, REJECTED
   approvedBy  String? // User ID of the approver
   comments    String?
@@ -82,5 +58,18 @@ model Task {
   title     String
   date      DateTime
   category  String
+  createdAt DateTime @default(now())
+}
+
+model Attendance {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  date       DateTime
+  status     String // e.g. present, on_duty, on_leave, off_today
+  markedBy   String // ID or name of the user who marked it
+  timeMarked DateTime @default(now())
+
   createdAt DateTime @default(now())
 }

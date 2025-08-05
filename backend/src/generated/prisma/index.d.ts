@@ -19,16 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Team
- * 
- */
-export type Team = $Result.DefaultSelection<Prisma.$TeamPayload>
-/**
- * Model TeamMember
- * 
- */
-export type TeamMember = $Result.DefaultSelection<Prisma.$TeamMemberPayload>
-/**
  * Model LeaveRequest
  * 
  */
@@ -43,6 +33,11 @@ export type Attachment = $Result.DefaultSelection<Prisma.$AttachmentPayload>
  * 
  */
 export type Task = $Result.DefaultSelection<Prisma.$TaskPayload>
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = $Result.DefaultSelection<Prisma.$AttendancePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -178,26 +173,6 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
-   * `prisma.team`: Exposes CRUD operations for the **Team** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Teams
-    * const teams = await prisma.team.findMany()
-    * ```
-    */
-  get team(): Prisma.TeamDelegate<ExtArgs>;
-
-  /**
-   * `prisma.teamMember`: Exposes CRUD operations for the **TeamMember** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more TeamMembers
-    * const teamMembers = await prisma.teamMember.findMany()
-    * ```
-    */
-  get teamMember(): Prisma.TeamMemberDelegate<ExtArgs>;
-
-  /**
    * `prisma.leaveRequest`: Exposes CRUD operations for the **LeaveRequest** model.
     * Example usage:
     * ```ts
@@ -226,6 +201,16 @@ export class PrismaClient<
     * ```
     */
   get task(): Prisma.TaskDelegate<ExtArgs>;
+
+  /**
+   * `prisma.attendance`: Exposes CRUD operations for the **Attendance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Attendances
+    * const attendances = await prisma.attendance.findMany()
+    * ```
+    */
+  get attendance(): Prisma.AttendanceDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -668,11 +653,10 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Team: 'Team',
-    TeamMember: 'TeamMember',
     LeaveRequest: 'LeaveRequest',
     Attachment: 'Attachment',
-    Task: 'Task'
+    Task: 'Task',
+    Attendance: 'Attendance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -688,7 +672,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "team" | "teamMember" | "leaveRequest" | "attachment" | "task"
+      modelProps: "user" | "leaveRequest" | "attachment" | "task" | "attendance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -755,138 +739,6 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
-      Team: {
-        payload: Prisma.$TeamPayload<ExtArgs>
-        fields: Prisma.TeamFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.TeamFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.TeamFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>
-          }
-          findFirst: {
-            args: Prisma.TeamFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.TeamFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>
-          }
-          findMany: {
-            args: Prisma.TeamFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>[]
-          }
-          create: {
-            args: Prisma.TeamCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>
-          }
-          createMany: {
-            args: Prisma.TeamCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.TeamDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>
-          }
-          update: {
-            args: Prisma.TeamUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>
-          }
-          deleteMany: {
-            args: Prisma.TeamDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.TeamUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.TeamUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamPayload>
-          }
-          aggregate: {
-            args: Prisma.TeamAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTeam>
-          }
-          groupBy: {
-            args: Prisma.TeamGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TeamGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.TeamCountArgs<ExtArgs>
-            result: $Utils.Optional<TeamCountAggregateOutputType> | number
-          }
-        }
-      }
-      TeamMember: {
-        payload: Prisma.$TeamMemberPayload<ExtArgs>
-        fields: Prisma.TeamMemberFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.TeamMemberFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.TeamMemberFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>
-          }
-          findFirst: {
-            args: Prisma.TeamMemberFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.TeamMemberFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>
-          }
-          findMany: {
-            args: Prisma.TeamMemberFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
-          }
-          create: {
-            args: Prisma.TeamMemberCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>
-          }
-          createMany: {
-            args: Prisma.TeamMemberCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          delete: {
-            args: Prisma.TeamMemberDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>
-          }
-          update: {
-            args: Prisma.TeamMemberUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>
-          }
-          deleteMany: {
-            args: Prisma.TeamMemberDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.TeamMemberUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.TeamMemberUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TeamMemberPayload>
-          }
-          aggregate: {
-            args: Prisma.TeamMemberAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTeamMember>
-          }
-          groupBy: {
-            args: Prisma.TeamMemberGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TeamMemberGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.TeamMemberCountArgs<ExtArgs>
-            result: $Utils.Optional<TeamMemberCountAggregateOutputType> | number
           }
         }
       }
@@ -1088,6 +940,72 @@ export namespace Prisma {
           }
         }
       }
+      Attendance: {
+        payload: Prisma.$AttendancePayload<ExtArgs>
+        fields: Prisma.AttendanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AttendanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AttendanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          findFirst: {
+            args: Prisma.AttendanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AttendanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          findMany: {
+            args: Prisma.AttendanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+          }
+          create: {
+            args: Prisma.AttendanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          createMany: {
+            args: Prisma.AttendanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AttendanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          update: {
+            args: Prisma.AttendanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          deleteMany: {
+            args: Prisma.AttendanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AttendanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AttendanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AttendancePayload>
+          }
+          aggregate: {
+            args: Prisma.AttendanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAttendance>
+          }
+          groupBy: {
+            args: Prisma.AttendanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AttendanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AttendanceCountArgs<ExtArgs>
+            result: $Utils.Optional<AttendanceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1249,15 +1167,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    managedTeams: number
-    teams: number
     leaveRequests: number
+    attendances: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    managedTeams?: boolean | UserCountOutputTypeCountManagedTeamsArgs
-    teams?: boolean | UserCountOutputTypeCountTeamsArgs
     leaveRequests?: boolean | UserCountOutputTypeCountLeaveRequestsArgs
+    attendances?: boolean | UserCountOutputTypeCountAttendancesArgs
   }
 
   // Custom InputTypes
@@ -1274,62 +1190,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountManagedTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TeamWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TeamMemberWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountLeaveRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeaveRequestWhereInput
   }
 
-
   /**
-   * Count Type TeamCountOutputType
+   * UserCountOutputType without action
    */
-
-  export type TeamCountOutputType = {
-    leaveRequests: number
-    members: number
-  }
-
-  export type TeamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    leaveRequests?: boolean | TeamCountOutputTypeCountLeaveRequestsArgs
-    members?: boolean | TeamCountOutputTypeCountMembersArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * TeamCountOutputType without action
-   */
-  export type TeamCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamCountOutputType
-     */
-    select?: TeamCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * TeamCountOutputType without action
-   */
-  export type TeamCountOutputTypeCountLeaveRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LeaveRequestWhereInput
-  }
-
-  /**
-   * TeamCountOutputType without action
-   */
-  export type TeamCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TeamMemberWhereInput
+  export type UserCountOutputTypeCountAttendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
   }
 
 
@@ -1572,9 +1441,8 @@ export namespace Prisma {
     department?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    managedTeams?: boolean | User$managedTeamsArgs<ExtArgs>
-    teams?: boolean | User$teamsArgs<ExtArgs>
     leaveRequests?: boolean | User$leaveRequestsArgs<ExtArgs>
+    attendances?: boolean | User$attendancesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1593,18 +1461,16 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    managedTeams?: boolean | User$managedTeamsArgs<ExtArgs>
-    teams?: boolean | User$teamsArgs<ExtArgs>
     leaveRequests?: boolean | User$leaveRequestsArgs<ExtArgs>
+    attendances?: boolean | User$attendancesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      managedTeams: Prisma.$TeamPayload<ExtArgs>[]
-      teams: Prisma.$TeamMemberPayload<ExtArgs>[]
       leaveRequests: Prisma.$LeaveRequestPayload<ExtArgs>[]
+      attendances: Prisma.$AttendancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1957,9 +1823,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    managedTeams<T extends User$managedTeamsArgs<ExtArgs> = {}>(args?: Subset<T, User$managedTeamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany"> | Null>
-    teams<T extends User$teamsArgs<ExtArgs> = {}>(args?: Subset<T, User$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany"> | Null>
     leaveRequests<T extends User$leaveRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$leaveRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveRequestPayload<ExtArgs>, T, "findMany"> | Null>
+    attendances<T extends User$attendancesArgs<ExtArgs> = {}>(args?: Subset<T, User$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2298,46 +2163,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.managedTeams
-   */
-  export type User$managedTeamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    where?: TeamWhereInput
-    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
-    cursor?: TeamWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
-  }
-
-  /**
-   * User.teams
-   */
-  export type User$teamsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    where?: TeamMemberWhereInput
-    orderBy?: TeamMemberOrderByWithRelationInput | TeamMemberOrderByWithRelationInput[]
-    cursor?: TeamMemberWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
-  }
-
-  /**
    * User.leaveRequests
    */
   export type User$leaveRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2358,6 +2183,26 @@ export namespace Prisma {
   }
 
   /**
+   * User.attendances
+   */
+  export type User$attendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    cursor?: AttendanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2369,1818 +2214,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Team
-   */
-
-  export type AggregateTeam = {
-    _count: TeamCountAggregateOutputType | null
-    _min: TeamMinAggregateOutputType | null
-    _max: TeamMaxAggregateOutputType | null
-  }
-
-  export type TeamMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    managerId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type TeamMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    managerId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type TeamCountAggregateOutputType = {
-    id: number
-    name: number
-    managerId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type TeamMinAggregateInputType = {
-    id?: true
-    name?: true
-    managerId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type TeamMaxAggregateInputType = {
-    id?: true
-    name?: true
-    managerId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type TeamCountAggregateInputType = {
-    id?: true
-    name?: true
-    managerId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type TeamAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Team to aggregate.
-     */
-    where?: TeamWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Teams to fetch.
-     */
-    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: TeamWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Teams from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Teams.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Teams
-    **/
-    _count?: true | TeamCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: TeamMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: TeamMaxAggregateInputType
-  }
-
-  export type GetTeamAggregateType<T extends TeamAggregateArgs> = {
-        [P in keyof T & keyof AggregateTeam]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTeam[P]>
-      : GetScalarType<T[P], AggregateTeam[P]>
-  }
-
-
-
-
-  export type TeamGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TeamWhereInput
-    orderBy?: TeamOrderByWithAggregationInput | TeamOrderByWithAggregationInput[]
-    by: TeamScalarFieldEnum[] | TeamScalarFieldEnum
-    having?: TeamScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: TeamCountAggregateInputType | true
-    _min?: TeamMinAggregateInputType
-    _max?: TeamMaxAggregateInputType
-  }
-
-  export type TeamGroupByOutputType = {
-    id: string
-    name: string
-    managerId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: TeamCountAggregateOutputType | null
-    _min: TeamMinAggregateOutputType | null
-    _max: TeamMaxAggregateOutputType | null
-  }
-
-  type GetTeamGroupByPayload<T extends TeamGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<TeamGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof TeamGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], TeamGroupByOutputType[P]>
-            : GetScalarType<T[P], TeamGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type TeamSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    managerId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    manager?: boolean | UserDefaultArgs<ExtArgs>
-    leaveRequests?: boolean | Team$leaveRequestsArgs<ExtArgs>
-    members?: boolean | Team$membersArgs<ExtArgs>
-    _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["team"]>
-
-
-  export type TeamSelectScalar = {
-    id?: boolean
-    name?: boolean
-    managerId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    manager?: boolean | UserDefaultArgs<ExtArgs>
-    leaveRequests?: boolean | Team$leaveRequestsArgs<ExtArgs>
-    members?: boolean | Team$membersArgs<ExtArgs>
-    _count?: boolean | TeamCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-  export type $TeamPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Team"
-    objects: {
-      manager: Prisma.$UserPayload<ExtArgs>
-      leaveRequests: Prisma.$LeaveRequestPayload<ExtArgs>[]
-      members: Prisma.$TeamMemberPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      managerId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["team"]>
-    composites: {}
-  }
-
-  type TeamGetPayload<S extends boolean | null | undefined | TeamDefaultArgs> = $Result.GetResult<Prisma.$TeamPayload, S>
-
-  type TeamCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TeamFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: TeamCountAggregateInputType | true
-    }
-
-  export interface TeamDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Team'], meta: { name: 'Team' } }
-    /**
-     * Find zero or one Team that matches the filter.
-     * @param {TeamFindUniqueArgs} args - Arguments to find a Team
-     * @example
-     * // Get one Team
-     * const team = await prisma.team.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends TeamFindUniqueArgs>(args: SelectSubset<T, TeamFindUniqueArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one Team that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {TeamFindUniqueOrThrowArgs} args - Arguments to find a Team
-     * @example
-     * // Get one Team
-     * const team = await prisma.team.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends TeamFindUniqueOrThrowArgs>(args: SelectSubset<T, TeamFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first Team that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamFindFirstArgs} args - Arguments to find a Team
-     * @example
-     * // Get one Team
-     * const team = await prisma.team.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends TeamFindFirstArgs>(args?: SelectSubset<T, TeamFindFirstArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first Team that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamFindFirstOrThrowArgs} args - Arguments to find a Team
-     * @example
-     * // Get one Team
-     * const team = await prisma.team.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends TeamFindFirstOrThrowArgs>(args?: SelectSubset<T, TeamFindFirstOrThrowArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more Teams that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Teams
-     * const teams = await prisma.team.findMany()
-     * 
-     * // Get first 10 Teams
-     * const teams = await prisma.team.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const teamWithIdOnly = await prisma.team.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends TeamFindManyArgs>(args?: SelectSubset<T, TeamFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a Team.
-     * @param {TeamCreateArgs} args - Arguments to create a Team.
-     * @example
-     * // Create one Team
-     * const Team = await prisma.team.create({
-     *   data: {
-     *     // ... data to create a Team
-     *   }
-     * })
-     * 
-     */
-    create<T extends TeamCreateArgs>(args: SelectSubset<T, TeamCreateArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many Teams.
-     * @param {TeamCreateManyArgs} args - Arguments to create many Teams.
-     * @example
-     * // Create many Teams
-     * const team = await prisma.team.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends TeamCreateManyArgs>(args?: SelectSubset<T, TeamCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Team.
-     * @param {TeamDeleteArgs} args - Arguments to delete one Team.
-     * @example
-     * // Delete one Team
-     * const Team = await prisma.team.delete({
-     *   where: {
-     *     // ... filter to delete one Team
-     *   }
-     * })
-     * 
-     */
-    delete<T extends TeamDeleteArgs>(args: SelectSubset<T, TeamDeleteArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one Team.
-     * @param {TeamUpdateArgs} args - Arguments to update one Team.
-     * @example
-     * // Update one Team
-     * const team = await prisma.team.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends TeamUpdateArgs>(args: SelectSubset<T, TeamUpdateArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more Teams.
-     * @param {TeamDeleteManyArgs} args - Arguments to filter Teams to delete.
-     * @example
-     * // Delete a few Teams
-     * const { count } = await prisma.team.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends TeamDeleteManyArgs>(args?: SelectSubset<T, TeamDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Teams.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Teams
-     * const team = await prisma.team.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends TeamUpdateManyArgs>(args: SelectSubset<T, TeamUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Team.
-     * @param {TeamUpsertArgs} args - Arguments to update or create a Team.
-     * @example
-     * // Update or create a Team
-     * const team = await prisma.team.upsert({
-     *   create: {
-     *     // ... data to create a Team
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Team we want to update
-     *   }
-     * })
-     */
-    upsert<T extends TeamUpsertArgs>(args: SelectSubset<T, TeamUpsertArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of Teams.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamCountArgs} args - Arguments to filter Teams to count.
-     * @example
-     * // Count the number of Teams
-     * const count = await prisma.team.count({
-     *   where: {
-     *     // ... the filter for the Teams we want to count
-     *   }
-     * })
-    **/
-    count<T extends TeamCountArgs>(
-      args?: Subset<T, TeamCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], TeamCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Team.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends TeamAggregateArgs>(args: Subset<T, TeamAggregateArgs>): Prisma.PrismaPromise<GetTeamAggregateType<T>>
-
-    /**
-     * Group by Team.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends TeamGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TeamGroupByArgs['orderBy'] }
-        : { orderBy?: TeamGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, TeamGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTeamGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Team model
-   */
-  readonly fields: TeamFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Team.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__TeamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    manager<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    leaveRequests<T extends Team$leaveRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Team$leaveRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeaveRequestPayload<ExtArgs>, T, "findMany"> | Null>
-    members<T extends Team$membersArgs<ExtArgs> = {}>(args?: Subset<T, Team$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany"> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Team model
-   */ 
-  interface TeamFieldRefs {
-    readonly id: FieldRef<"Team", 'String'>
-    readonly name: FieldRef<"Team", 'String'>
-    readonly managerId: FieldRef<"Team", 'String'>
-    readonly createdAt: FieldRef<"Team", 'DateTime'>
-    readonly updatedAt: FieldRef<"Team", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Team findUnique
-   */
-  export type TeamFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * Filter, which Team to fetch.
-     */
-    where: TeamWhereUniqueInput
-  }
-
-  /**
-   * Team findUniqueOrThrow
-   */
-  export type TeamFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * Filter, which Team to fetch.
-     */
-    where: TeamWhereUniqueInput
-  }
-
-  /**
-   * Team findFirst
-   */
-  export type TeamFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * Filter, which Team to fetch.
-     */
-    where?: TeamWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Teams to fetch.
-     */
-    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Teams.
-     */
-    cursor?: TeamWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Teams from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Teams.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Teams.
-     */
-    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
-  }
-
-  /**
-   * Team findFirstOrThrow
-   */
-  export type TeamFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * Filter, which Team to fetch.
-     */
-    where?: TeamWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Teams to fetch.
-     */
-    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Teams.
-     */
-    cursor?: TeamWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Teams from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Teams.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Teams.
-     */
-    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
-  }
-
-  /**
-   * Team findMany
-   */
-  export type TeamFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * Filter, which Teams to fetch.
-     */
-    where?: TeamWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Teams to fetch.
-     */
-    orderBy?: TeamOrderByWithRelationInput | TeamOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Teams.
-     */
-    cursor?: TeamWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Teams from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Teams.
-     */
-    skip?: number
-    distinct?: TeamScalarFieldEnum | TeamScalarFieldEnum[]
-  }
-
-  /**
-   * Team create
-   */
-  export type TeamCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Team.
-     */
-    data: XOR<TeamCreateInput, TeamUncheckedCreateInput>
-  }
-
-  /**
-   * Team createMany
-   */
-  export type TeamCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Teams.
-     */
-    data: TeamCreateManyInput | TeamCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Team update
-   */
-  export type TeamUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Team.
-     */
-    data: XOR<TeamUpdateInput, TeamUncheckedUpdateInput>
-    /**
-     * Choose, which Team to update.
-     */
-    where: TeamWhereUniqueInput
-  }
-
-  /**
-   * Team updateMany
-   */
-  export type TeamUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Teams.
-     */
-    data: XOR<TeamUpdateManyMutationInput, TeamUncheckedUpdateManyInput>
-    /**
-     * Filter which Teams to update
-     */
-    where?: TeamWhereInput
-  }
-
-  /**
-   * Team upsert
-   */
-  export type TeamUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Team to update in case it exists.
-     */
-    where: TeamWhereUniqueInput
-    /**
-     * In case the Team found by the `where` argument doesn't exist, create a new Team with this data.
-     */
-    create: XOR<TeamCreateInput, TeamUncheckedCreateInput>
-    /**
-     * In case the Team was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<TeamUpdateInput, TeamUncheckedUpdateInput>
-  }
-
-  /**
-   * Team delete
-   */
-  export type TeamDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-    /**
-     * Filter which Team to delete.
-     */
-    where: TeamWhereUniqueInput
-  }
-
-  /**
-   * Team deleteMany
-   */
-  export type TeamDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Teams to delete
-     */
-    where?: TeamWhereInput
-  }
-
-  /**
-   * Team.leaveRequests
-   */
-  export type Team$leaveRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LeaveRequest
-     */
-    select?: LeaveRequestSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LeaveRequestInclude<ExtArgs> | null
-    where?: LeaveRequestWhereInput
-    orderBy?: LeaveRequestOrderByWithRelationInput | LeaveRequestOrderByWithRelationInput[]
-    cursor?: LeaveRequestWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LeaveRequestScalarFieldEnum | LeaveRequestScalarFieldEnum[]
-  }
-
-  /**
-   * Team.members
-   */
-  export type Team$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    where?: TeamMemberWhereInput
-    orderBy?: TeamMemberOrderByWithRelationInput | TeamMemberOrderByWithRelationInput[]
-    cursor?: TeamMemberWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
-  }
-
-  /**
-   * Team without action
-   */
-  export type TeamDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Team
-     */
-    select?: TeamSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model TeamMember
-   */
-
-  export type AggregateTeamMember = {
-    _count: TeamMemberCountAggregateOutputType | null
-    _min: TeamMemberMinAggregateOutputType | null
-    _max: TeamMemberMaxAggregateOutputType | null
-  }
-
-  export type TeamMemberMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    teamId: string | null
-    joinedAt: Date | null
-    isActive: boolean | null
-  }
-
-  export type TeamMemberMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    teamId: string | null
-    joinedAt: Date | null
-    isActive: boolean | null
-  }
-
-  export type TeamMemberCountAggregateOutputType = {
-    id: number
-    userId: number
-    teamId: number
-    joinedAt: number
-    isActive: number
-    _all: number
-  }
-
-
-  export type TeamMemberMinAggregateInputType = {
-    id?: true
-    userId?: true
-    teamId?: true
-    joinedAt?: true
-    isActive?: true
-  }
-
-  export type TeamMemberMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    teamId?: true
-    joinedAt?: true
-    isActive?: true
-  }
-
-  export type TeamMemberCountAggregateInputType = {
-    id?: true
-    userId?: true
-    teamId?: true
-    joinedAt?: true
-    isActive?: true
-    _all?: true
-  }
-
-  export type TeamMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which TeamMember to aggregate.
-     */
-    where?: TeamMemberWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TeamMembers to fetch.
-     */
-    orderBy?: TeamMemberOrderByWithRelationInput | TeamMemberOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: TeamMemberWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TeamMembers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TeamMembers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned TeamMembers
-    **/
-    _count?: true | TeamMemberCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: TeamMemberMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: TeamMemberMaxAggregateInputType
-  }
-
-  export type GetTeamMemberAggregateType<T extends TeamMemberAggregateArgs> = {
-        [P in keyof T & keyof AggregateTeamMember]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTeamMember[P]>
-      : GetScalarType<T[P], AggregateTeamMember[P]>
-  }
-
-
-
-
-  export type TeamMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TeamMemberWhereInput
-    orderBy?: TeamMemberOrderByWithAggregationInput | TeamMemberOrderByWithAggregationInput[]
-    by: TeamMemberScalarFieldEnum[] | TeamMemberScalarFieldEnum
-    having?: TeamMemberScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: TeamMemberCountAggregateInputType | true
-    _min?: TeamMemberMinAggregateInputType
-    _max?: TeamMemberMaxAggregateInputType
-  }
-
-  export type TeamMemberGroupByOutputType = {
-    id: string
-    userId: string
-    teamId: string
-    joinedAt: Date
-    isActive: boolean
-    _count: TeamMemberCountAggregateOutputType | null
-    _min: TeamMemberMinAggregateOutputType | null
-    _max: TeamMemberMaxAggregateOutputType | null
-  }
-
-  type GetTeamMemberGroupByPayload<T extends TeamMemberGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<TeamMemberGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof TeamMemberGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], TeamMemberGroupByOutputType[P]>
-            : GetScalarType<T[P], TeamMemberGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type TeamMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    teamId?: boolean
-    joinedAt?: boolean
-    isActive?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["teamMember"]>
-
-
-  export type TeamMemberSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    teamId?: boolean
-    joinedAt?: boolean
-    isActive?: boolean
-  }
-
-  export type TeamMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
-  }
-
-  export type $TeamMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "TeamMember"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      team: Prisma.$TeamPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string
-      teamId: string
-      joinedAt: Date
-      isActive: boolean
-    }, ExtArgs["result"]["teamMember"]>
-    composites: {}
-  }
-
-  type TeamMemberGetPayload<S extends boolean | null | undefined | TeamMemberDefaultArgs> = $Result.GetResult<Prisma.$TeamMemberPayload, S>
-
-  type TeamMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<TeamMemberFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: TeamMemberCountAggregateInputType | true
-    }
-
-  export interface TeamMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TeamMember'], meta: { name: 'TeamMember' } }
-    /**
-     * Find zero or one TeamMember that matches the filter.
-     * @param {TeamMemberFindUniqueArgs} args - Arguments to find a TeamMember
-     * @example
-     * // Get one TeamMember
-     * const teamMember = await prisma.teamMember.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends TeamMemberFindUniqueArgs>(args: SelectSubset<T, TeamMemberFindUniqueArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one TeamMember that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {TeamMemberFindUniqueOrThrowArgs} args - Arguments to find a TeamMember
-     * @example
-     * // Get one TeamMember
-     * const teamMember = await prisma.teamMember.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends TeamMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, TeamMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first TeamMember that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberFindFirstArgs} args - Arguments to find a TeamMember
-     * @example
-     * // Get one TeamMember
-     * const teamMember = await prisma.teamMember.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends TeamMemberFindFirstArgs>(args?: SelectSubset<T, TeamMemberFindFirstArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first TeamMember that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberFindFirstOrThrowArgs} args - Arguments to find a TeamMember
-     * @example
-     * // Get one TeamMember
-     * const teamMember = await prisma.teamMember.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends TeamMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, TeamMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more TeamMembers that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all TeamMembers
-     * const teamMembers = await prisma.teamMember.findMany()
-     * 
-     * // Get first 10 TeamMembers
-     * const teamMembers = await prisma.teamMember.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const teamMemberWithIdOnly = await prisma.teamMember.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends TeamMemberFindManyArgs>(args?: SelectSubset<T, TeamMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a TeamMember.
-     * @param {TeamMemberCreateArgs} args - Arguments to create a TeamMember.
-     * @example
-     * // Create one TeamMember
-     * const TeamMember = await prisma.teamMember.create({
-     *   data: {
-     *     // ... data to create a TeamMember
-     *   }
-     * })
-     * 
-     */
-    create<T extends TeamMemberCreateArgs>(args: SelectSubset<T, TeamMemberCreateArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many TeamMembers.
-     * @param {TeamMemberCreateManyArgs} args - Arguments to create many TeamMembers.
-     * @example
-     * // Create many TeamMembers
-     * const teamMember = await prisma.teamMember.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends TeamMemberCreateManyArgs>(args?: SelectSubset<T, TeamMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a TeamMember.
-     * @param {TeamMemberDeleteArgs} args - Arguments to delete one TeamMember.
-     * @example
-     * // Delete one TeamMember
-     * const TeamMember = await prisma.teamMember.delete({
-     *   where: {
-     *     // ... filter to delete one TeamMember
-     *   }
-     * })
-     * 
-     */
-    delete<T extends TeamMemberDeleteArgs>(args: SelectSubset<T, TeamMemberDeleteArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one TeamMember.
-     * @param {TeamMemberUpdateArgs} args - Arguments to update one TeamMember.
-     * @example
-     * // Update one TeamMember
-     * const teamMember = await prisma.teamMember.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends TeamMemberUpdateArgs>(args: SelectSubset<T, TeamMemberUpdateArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more TeamMembers.
-     * @param {TeamMemberDeleteManyArgs} args - Arguments to filter TeamMembers to delete.
-     * @example
-     * // Delete a few TeamMembers
-     * const { count } = await prisma.teamMember.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends TeamMemberDeleteManyArgs>(args?: SelectSubset<T, TeamMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more TeamMembers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many TeamMembers
-     * const teamMember = await prisma.teamMember.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends TeamMemberUpdateManyArgs>(args: SelectSubset<T, TeamMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one TeamMember.
-     * @param {TeamMemberUpsertArgs} args - Arguments to update or create a TeamMember.
-     * @example
-     * // Update or create a TeamMember
-     * const teamMember = await prisma.teamMember.upsert({
-     *   create: {
-     *     // ... data to create a TeamMember
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the TeamMember we want to update
-     *   }
-     * })
-     */
-    upsert<T extends TeamMemberUpsertArgs>(args: SelectSubset<T, TeamMemberUpsertArgs<ExtArgs>>): Prisma__TeamMemberClient<$Result.GetResult<Prisma.$TeamMemberPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of TeamMembers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberCountArgs} args - Arguments to filter TeamMembers to count.
-     * @example
-     * // Count the number of TeamMembers
-     * const count = await prisma.teamMember.count({
-     *   where: {
-     *     // ... the filter for the TeamMembers we want to count
-     *   }
-     * })
-    **/
-    count<T extends TeamMemberCountArgs>(
-      args?: Subset<T, TeamMemberCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], TeamMemberCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a TeamMember.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends TeamMemberAggregateArgs>(args: Subset<T, TeamMemberAggregateArgs>): Prisma.PrismaPromise<GetTeamMemberAggregateType<T>>
-
-    /**
-     * Group by TeamMember.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {TeamMemberGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends TeamMemberGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TeamMemberGroupByArgs['orderBy'] }
-        : { orderBy?: TeamMemberGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, TeamMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTeamMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the TeamMember model
-   */
-  readonly fields: TeamMemberFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for TeamMember.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__TeamMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the TeamMember model
-   */ 
-  interface TeamMemberFieldRefs {
-    readonly id: FieldRef<"TeamMember", 'String'>
-    readonly userId: FieldRef<"TeamMember", 'String'>
-    readonly teamId: FieldRef<"TeamMember", 'String'>
-    readonly joinedAt: FieldRef<"TeamMember", 'DateTime'>
-    readonly isActive: FieldRef<"TeamMember", 'Boolean'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * TeamMember findUnique
-   */
-  export type TeamMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * Filter, which TeamMember to fetch.
-     */
-    where: TeamMemberWhereUniqueInput
-  }
-
-  /**
-   * TeamMember findUniqueOrThrow
-   */
-  export type TeamMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * Filter, which TeamMember to fetch.
-     */
-    where: TeamMemberWhereUniqueInput
-  }
-
-  /**
-   * TeamMember findFirst
-   */
-  export type TeamMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * Filter, which TeamMember to fetch.
-     */
-    where?: TeamMemberWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TeamMembers to fetch.
-     */
-    orderBy?: TeamMemberOrderByWithRelationInput | TeamMemberOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TeamMembers.
-     */
-    cursor?: TeamMemberWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TeamMembers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TeamMembers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TeamMembers.
-     */
-    distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
-  }
-
-  /**
-   * TeamMember findFirstOrThrow
-   */
-  export type TeamMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * Filter, which TeamMember to fetch.
-     */
-    where?: TeamMemberWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TeamMembers to fetch.
-     */
-    orderBy?: TeamMemberOrderByWithRelationInput | TeamMemberOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for TeamMembers.
-     */
-    cursor?: TeamMemberWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TeamMembers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TeamMembers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of TeamMembers.
-     */
-    distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
-  }
-
-  /**
-   * TeamMember findMany
-   */
-  export type TeamMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * Filter, which TeamMembers to fetch.
-     */
-    where?: TeamMemberWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of TeamMembers to fetch.
-     */
-    orderBy?: TeamMemberOrderByWithRelationInput | TeamMemberOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing TeamMembers.
-     */
-    cursor?: TeamMemberWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` TeamMembers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` TeamMembers.
-     */
-    skip?: number
-    distinct?: TeamMemberScalarFieldEnum | TeamMemberScalarFieldEnum[]
-  }
-
-  /**
-   * TeamMember create
-   */
-  export type TeamMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * The data needed to create a TeamMember.
-     */
-    data: XOR<TeamMemberCreateInput, TeamMemberUncheckedCreateInput>
-  }
-
-  /**
-   * TeamMember createMany
-   */
-  export type TeamMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many TeamMembers.
-     */
-    data: TeamMemberCreateManyInput | TeamMemberCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * TeamMember update
-   */
-  export type TeamMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * The data needed to update a TeamMember.
-     */
-    data: XOR<TeamMemberUpdateInput, TeamMemberUncheckedUpdateInput>
-    /**
-     * Choose, which TeamMember to update.
-     */
-    where: TeamMemberWhereUniqueInput
-  }
-
-  /**
-   * TeamMember updateMany
-   */
-  export type TeamMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update TeamMembers.
-     */
-    data: XOR<TeamMemberUpdateManyMutationInput, TeamMemberUncheckedUpdateManyInput>
-    /**
-     * Filter which TeamMembers to update
-     */
-    where?: TeamMemberWhereInput
-  }
-
-  /**
-   * TeamMember upsert
-   */
-  export type TeamMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * The filter to search for the TeamMember to update in case it exists.
-     */
-    where: TeamMemberWhereUniqueInput
-    /**
-     * In case the TeamMember found by the `where` argument doesn't exist, create a new TeamMember with this data.
-     */
-    create: XOR<TeamMemberCreateInput, TeamMemberUncheckedCreateInput>
-    /**
-     * In case the TeamMember was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<TeamMemberUpdateInput, TeamMemberUncheckedUpdateInput>
-  }
-
-  /**
-   * TeamMember delete
-   */
-  export type TeamMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
-    /**
-     * Filter which TeamMember to delete.
-     */
-    where: TeamMemberWhereUniqueInput
-  }
-
-  /**
-   * TeamMember deleteMany
-   */
-  export type TeamMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which TeamMembers to delete
-     */
-    where?: TeamMemberWhereInput
-  }
-
-  /**
-   * TeamMember without action
-   */
-  export type TeamMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TeamMember
-     */
-    select?: TeamMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TeamMemberInclude<ExtArgs> | null
   }
 
 
@@ -4197,10 +2230,10 @@ export namespace Prisma {
   export type LeaveRequestMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    teamId: string | null
     startDate: Date | null
     endDate: Date | null
     reason: string | null
+    type: string | null
     status: string | null
     approvedBy: string | null
     comments: string | null
@@ -4211,10 +2244,10 @@ export namespace Prisma {
   export type LeaveRequestMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    teamId: string | null
     startDate: Date | null
     endDate: Date | null
     reason: string | null
+    type: string | null
     status: string | null
     approvedBy: string | null
     comments: string | null
@@ -4225,10 +2258,10 @@ export namespace Prisma {
   export type LeaveRequestCountAggregateOutputType = {
     id: number
     userId: number
-    teamId: number
     startDate: number
     endDate: number
     reason: number
+    type: number
     status: number
     approvedBy: number
     comments: number
@@ -4241,10 +2274,10 @@ export namespace Prisma {
   export type LeaveRequestMinAggregateInputType = {
     id?: true
     userId?: true
-    teamId?: true
     startDate?: true
     endDate?: true
     reason?: true
+    type?: true
     status?: true
     approvedBy?: true
     comments?: true
@@ -4255,10 +2288,10 @@ export namespace Prisma {
   export type LeaveRequestMaxAggregateInputType = {
     id?: true
     userId?: true
-    teamId?: true
     startDate?: true
     endDate?: true
     reason?: true
+    type?: true
     status?: true
     approvedBy?: true
     comments?: true
@@ -4269,10 +2302,10 @@ export namespace Prisma {
   export type LeaveRequestCountAggregateInputType = {
     id?: true
     userId?: true
-    teamId?: true
     startDate?: true
     endDate?: true
     reason?: true
+    type?: true
     status?: true
     approvedBy?: true
     comments?: true
@@ -4356,10 +2389,10 @@ export namespace Prisma {
   export type LeaveRequestGroupByOutputType = {
     id: string
     userId: string
-    teamId: string
     startDate: Date
     endDate: Date
     reason: string
+    type: string
     status: string
     approvedBy: string | null
     comments: string | null
@@ -4387,17 +2420,16 @@ export namespace Prisma {
   export type LeaveRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    teamId?: boolean
     startDate?: boolean
     endDate?: boolean
     reason?: boolean
+    type?: boolean
     status?: boolean
     approvedBy?: boolean
     comments?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
     attachments?: boolean | LeaveRequest$attachmentsArgs<ExtArgs>
     _count?: boolean | LeaveRequestCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["leaveRequest"]>
@@ -4406,10 +2438,10 @@ export namespace Prisma {
   export type LeaveRequestSelectScalar = {
     id?: boolean
     userId?: boolean
-    teamId?: boolean
     startDate?: boolean
     endDate?: boolean
     reason?: boolean
+    type?: boolean
     status?: boolean
     approvedBy?: boolean
     comments?: boolean
@@ -4419,7 +2451,6 @@ export namespace Prisma {
 
   export type LeaveRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    team?: boolean | TeamDefaultArgs<ExtArgs>
     attachments?: boolean | LeaveRequest$attachmentsArgs<ExtArgs>
     _count?: boolean | LeaveRequestCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4428,16 +2459,15 @@ export namespace Prisma {
     name: "LeaveRequest"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      team: Prisma.$TeamPayload<ExtArgs>
       attachments: Prisma.$AttachmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      teamId: string
       startDate: Date
       endDate: Date
       reason: string
+      type: string
       status: string
       approvedBy: string | null
       comments: string | null
@@ -4784,7 +2814,6 @@ export namespace Prisma {
   export interface Prisma__LeaveRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    team<T extends TeamDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TeamDefaultArgs<ExtArgs>>): Prisma__TeamClient<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     attachments<T extends LeaveRequest$attachmentsArgs<ExtArgs> = {}>(args?: Subset<T, LeaveRequest$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4817,10 +2846,10 @@ export namespace Prisma {
   interface LeaveRequestFieldRefs {
     readonly id: FieldRef<"LeaveRequest", 'String'>
     readonly userId: FieldRef<"LeaveRequest", 'String'>
-    readonly teamId: FieldRef<"LeaveRequest", 'String'>
     readonly startDate: FieldRef<"LeaveRequest", 'DateTime'>
     readonly endDate: FieldRef<"LeaveRequest", 'DateTime'>
     readonly reason: FieldRef<"LeaveRequest", 'String'>
+    readonly type: FieldRef<"LeaveRequest", 'String'>
     readonly status: FieldRef<"LeaveRequest", 'String'>
     readonly approvedBy: FieldRef<"LeaveRequest", 'String'>
     readonly comments: FieldRef<"LeaveRequest", 'String'>
@@ -6998,6 +5027,907 @@ export namespace Prisma {
 
 
   /**
+   * Model Attendance
+   */
+
+  export type AggregateAttendance = {
+    _count: AttendanceCountAggregateOutputType | null
+    _min: AttendanceMinAggregateOutputType | null
+    _max: AttendanceMaxAggregateOutputType | null
+  }
+
+  export type AttendanceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    status: string | null
+    markedBy: string | null
+    timeMarked: Date | null
+    createdAt: Date | null
+  }
+
+  export type AttendanceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    status: string | null
+    markedBy: string | null
+    timeMarked: Date | null
+    createdAt: Date | null
+  }
+
+  export type AttendanceCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    status: number
+    markedBy: number
+    timeMarked: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AttendanceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    status?: true
+    markedBy?: true
+    timeMarked?: true
+    createdAt?: true
+  }
+
+  export type AttendanceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    status?: true
+    markedBy?: true
+    timeMarked?: true
+    createdAt?: true
+  }
+
+  export type AttendanceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    status?: true
+    markedBy?: true
+    timeMarked?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AttendanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Attendance to aggregate.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Attendances
+    **/
+    _count?: true | AttendanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AttendanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AttendanceMaxAggregateInputType
+  }
+
+  export type GetAttendanceAggregateType<T extends AttendanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateAttendance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAttendance[P]>
+      : GetScalarType<T[P], AggregateAttendance[P]>
+  }
+
+
+
+
+  export type AttendanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AttendanceWhereInput
+    orderBy?: AttendanceOrderByWithAggregationInput | AttendanceOrderByWithAggregationInput[]
+    by: AttendanceScalarFieldEnum[] | AttendanceScalarFieldEnum
+    having?: AttendanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AttendanceCountAggregateInputType | true
+    _min?: AttendanceMinAggregateInputType
+    _max?: AttendanceMaxAggregateInputType
+  }
+
+  export type AttendanceGroupByOutputType = {
+    id: string
+    userId: string
+    date: Date
+    status: string
+    markedBy: string
+    timeMarked: Date
+    createdAt: Date
+    _count: AttendanceCountAggregateOutputType | null
+    _min: AttendanceMinAggregateOutputType | null
+    _max: AttendanceMaxAggregateOutputType | null
+  }
+
+  type GetAttendanceGroupByPayload<T extends AttendanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AttendanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AttendanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AttendanceGroupByOutputType[P]>
+            : GetScalarType<T[P], AttendanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AttendanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    status?: boolean
+    markedBy?: boolean
+    timeMarked?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["attendance"]>
+
+
+  export type AttendanceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    status?: boolean
+    markedBy?: boolean
+    timeMarked?: boolean
+    createdAt?: boolean
+  }
+
+  export type AttendanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AttendancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Attendance"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: Date
+      status: string
+      markedBy: string
+      timeMarked: Date
+      createdAt: Date
+    }, ExtArgs["result"]["attendance"]>
+    composites: {}
+  }
+
+  type AttendanceGetPayload<S extends boolean | null | undefined | AttendanceDefaultArgs> = $Result.GetResult<Prisma.$AttendancePayload, S>
+
+  type AttendanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AttendanceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AttendanceCountAggregateInputType | true
+    }
+
+  export interface AttendanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Attendance'], meta: { name: 'Attendance' } }
+    /**
+     * Find zero or one Attendance that matches the filter.
+     * @param {AttendanceFindUniqueArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AttendanceFindUniqueArgs>(args: SelectSubset<T, AttendanceFindUniqueArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Attendance that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AttendanceFindUniqueOrThrowArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AttendanceFindUniqueOrThrowArgs>(args: SelectSubset<T, AttendanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Attendance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceFindFirstArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AttendanceFindFirstArgs>(args?: SelectSubset<T, AttendanceFindFirstArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Attendance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceFindFirstOrThrowArgs} args - Arguments to find a Attendance
+     * @example
+     * // Get one Attendance
+     * const attendance = await prisma.attendance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AttendanceFindFirstOrThrowArgs>(args?: SelectSubset<T, AttendanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Attendances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Attendances
+     * const attendances = await prisma.attendance.findMany()
+     * 
+     * // Get first 10 Attendances
+     * const attendances = await prisma.attendance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const attendanceWithIdOnly = await prisma.attendance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AttendanceFindManyArgs>(args?: SelectSubset<T, AttendanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Attendance.
+     * @param {AttendanceCreateArgs} args - Arguments to create a Attendance.
+     * @example
+     * // Create one Attendance
+     * const Attendance = await prisma.attendance.create({
+     *   data: {
+     *     // ... data to create a Attendance
+     *   }
+     * })
+     * 
+     */
+    create<T extends AttendanceCreateArgs>(args: SelectSubset<T, AttendanceCreateArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Attendances.
+     * @param {AttendanceCreateManyArgs} args - Arguments to create many Attendances.
+     * @example
+     * // Create many Attendances
+     * const attendance = await prisma.attendance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AttendanceCreateManyArgs>(args?: SelectSubset<T, AttendanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Attendance.
+     * @param {AttendanceDeleteArgs} args - Arguments to delete one Attendance.
+     * @example
+     * // Delete one Attendance
+     * const Attendance = await prisma.attendance.delete({
+     *   where: {
+     *     // ... filter to delete one Attendance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AttendanceDeleteArgs>(args: SelectSubset<T, AttendanceDeleteArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Attendance.
+     * @param {AttendanceUpdateArgs} args - Arguments to update one Attendance.
+     * @example
+     * // Update one Attendance
+     * const attendance = await prisma.attendance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AttendanceUpdateArgs>(args: SelectSubset<T, AttendanceUpdateArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Attendances.
+     * @param {AttendanceDeleteManyArgs} args - Arguments to filter Attendances to delete.
+     * @example
+     * // Delete a few Attendances
+     * const { count } = await prisma.attendance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AttendanceDeleteManyArgs>(args?: SelectSubset<T, AttendanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Attendances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Attendances
+     * const attendance = await prisma.attendance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AttendanceUpdateManyArgs>(args: SelectSubset<T, AttendanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Attendance.
+     * @param {AttendanceUpsertArgs} args - Arguments to update or create a Attendance.
+     * @example
+     * // Update or create a Attendance
+     * const attendance = await prisma.attendance.upsert({
+     *   create: {
+     *     // ... data to create a Attendance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Attendance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AttendanceUpsertArgs>(args: SelectSubset<T, AttendanceUpsertArgs<ExtArgs>>): Prisma__AttendanceClient<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Attendances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceCountArgs} args - Arguments to filter Attendances to count.
+     * @example
+     * // Count the number of Attendances
+     * const count = await prisma.attendance.count({
+     *   where: {
+     *     // ... the filter for the Attendances we want to count
+     *   }
+     * })
+    **/
+    count<T extends AttendanceCountArgs>(
+      args?: Subset<T, AttendanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AttendanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Attendance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AttendanceAggregateArgs>(args: Subset<T, AttendanceAggregateArgs>): Prisma.PrismaPromise<GetAttendanceAggregateType<T>>
+
+    /**
+     * Group by Attendance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AttendanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AttendanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AttendanceGroupByArgs['orderBy'] }
+        : { orderBy?: AttendanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AttendanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAttendanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Attendance model
+   */
+  readonly fields: AttendanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Attendance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AttendanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Attendance model
+   */ 
+  interface AttendanceFieldRefs {
+    readonly id: FieldRef<"Attendance", 'String'>
+    readonly userId: FieldRef<"Attendance", 'String'>
+    readonly date: FieldRef<"Attendance", 'DateTime'>
+    readonly status: FieldRef<"Attendance", 'String'>
+    readonly markedBy: FieldRef<"Attendance", 'String'>
+    readonly timeMarked: FieldRef<"Attendance", 'DateTime'>
+    readonly createdAt: FieldRef<"Attendance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Attendance findUnique
+   */
+  export type AttendanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance findUniqueOrThrow
+   */
+  export type AttendanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance findFirst
+   */
+  export type AttendanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Attendances.
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Attendances.
+     */
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Attendance findFirstOrThrow
+   */
+  export type AttendanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendance to fetch.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Attendances.
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Attendances.
+     */
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Attendance findMany
+   */
+  export type AttendanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Attendances to fetch.
+     */
+    where?: AttendanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Attendances to fetch.
+     */
+    orderBy?: AttendanceOrderByWithRelationInput | AttendanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Attendances.
+     */
+    cursor?: AttendanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Attendances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Attendances.
+     */
+    skip?: number
+    distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Attendance create
+   */
+  export type AttendanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Attendance.
+     */
+    data: XOR<AttendanceCreateInput, AttendanceUncheckedCreateInput>
+  }
+
+  /**
+   * Attendance createMany
+   */
+  export type AttendanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Attendances.
+     */
+    data: AttendanceCreateManyInput | AttendanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Attendance update
+   */
+  export type AttendanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Attendance.
+     */
+    data: XOR<AttendanceUpdateInput, AttendanceUncheckedUpdateInput>
+    /**
+     * Choose, which Attendance to update.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance updateMany
+   */
+  export type AttendanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Attendances.
+     */
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Attendances to update
+     */
+    where?: AttendanceWhereInput
+  }
+
+  /**
+   * Attendance upsert
+   */
+  export type AttendanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Attendance to update in case it exists.
+     */
+    where: AttendanceWhereUniqueInput
+    /**
+     * In case the Attendance found by the `where` argument doesn't exist, create a new Attendance with this data.
+     */
+    create: XOR<AttendanceCreateInput, AttendanceUncheckedCreateInput>
+    /**
+     * In case the Attendance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AttendanceUpdateInput, AttendanceUncheckedUpdateInput>
+  }
+
+  /**
+   * Attendance delete
+   */
+  export type AttendanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+    /**
+     * Filter which Attendance to delete.
+     */
+    where: AttendanceWhereUniqueInput
+  }
+
+  /**
+   * Attendance deleteMany
+   */
+  export type AttendanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Attendances to delete
+     */
+    where?: AttendanceWhereInput
+  }
+
+  /**
+   * Attendance without action
+   */
+  export type AttendanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Attendance
+     */
+    select?: AttendanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AttendanceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7027,35 +5957,13 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const TeamScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    managerId: 'managerId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
-
-
-  export const TeamMemberScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    teamId: 'teamId',
-    joinedAt: 'joinedAt',
-    isActive: 'isActive'
-  };
-
-  export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
-
-
   export const LeaveRequestScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    teamId: 'teamId',
     startDate: 'startDate',
     endDate: 'endDate',
     reason: 'reason',
+    type: 'type',
     status: 'status',
     approvedBy: 'approvedBy',
     comments: 'comments',
@@ -7090,6 +5998,19 @@ export namespace Prisma {
   };
 
   export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+  export const AttendanceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    status: 'status',
+    markedBy: 'markedBy',
+    timeMarked: 'timeMarked',
+    createdAt: 'createdAt'
+  };
+
+  export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7128,13 +6049,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -7165,9 +6079,8 @@ export namespace Prisma {
     department?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    managedTeams?: TeamListRelationFilter
-    teams?: TeamMemberListRelationFilter
     leaveRequests?: LeaveRequestListRelationFilter
+    attendances?: AttendanceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7181,9 +6094,8 @@ export namespace Prisma {
     department?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    managedTeams?: TeamOrderByRelationAggregateInput
-    teams?: TeamMemberOrderByRelationAggregateInput
     leaveRequests?: LeaveRequestOrderByRelationAggregateInput
+    attendances?: AttendanceOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7200,9 +6112,8 @@ export namespace Prisma {
     department?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    managedTeams?: TeamListRelationFilter
-    teams?: TeamMemberListRelationFilter
     leaveRequests?: LeaveRequestListRelationFilter
+    attendances?: AttendanceListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7237,160 +6148,38 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
-  export type TeamWhereInput = {
-    AND?: TeamWhereInput | TeamWhereInput[]
-    OR?: TeamWhereInput[]
-    NOT?: TeamWhereInput | TeamWhereInput[]
-    id?: StringFilter<"Team"> | string
-    name?: StringFilter<"Team"> | string
-    managerId?: StringFilter<"Team"> | string
-    createdAt?: DateTimeFilter<"Team"> | Date | string
-    updatedAt?: DateTimeFilter<"Team"> | Date | string
-    manager?: XOR<UserRelationFilter, UserWhereInput>
-    leaveRequests?: LeaveRequestListRelationFilter
-    members?: TeamMemberListRelationFilter
-  }
-
-  export type TeamOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    managerId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    manager?: UserOrderByWithRelationInput
-    leaveRequests?: LeaveRequestOrderByRelationAggregateInput
-    members?: TeamMemberOrderByRelationAggregateInput
-  }
-
-  export type TeamWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: TeamWhereInput | TeamWhereInput[]
-    OR?: TeamWhereInput[]
-    NOT?: TeamWhereInput | TeamWhereInput[]
-    name?: StringFilter<"Team"> | string
-    managerId?: StringFilter<"Team"> | string
-    createdAt?: DateTimeFilter<"Team"> | Date | string
-    updatedAt?: DateTimeFilter<"Team"> | Date | string
-    manager?: XOR<UserRelationFilter, UserWhereInput>
-    leaveRequests?: LeaveRequestListRelationFilter
-    members?: TeamMemberListRelationFilter
-  }, "id">
-
-  export type TeamOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    managerId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: TeamCountOrderByAggregateInput
-    _max?: TeamMaxOrderByAggregateInput
-    _min?: TeamMinOrderByAggregateInput
-  }
-
-  export type TeamScalarWhereWithAggregatesInput = {
-    AND?: TeamScalarWhereWithAggregatesInput | TeamScalarWhereWithAggregatesInput[]
-    OR?: TeamScalarWhereWithAggregatesInput[]
-    NOT?: TeamScalarWhereWithAggregatesInput | TeamScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Team"> | string
-    name?: StringWithAggregatesFilter<"Team"> | string
-    managerId?: StringWithAggregatesFilter<"Team"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
-  }
-
-  export type TeamMemberWhereInput = {
-    AND?: TeamMemberWhereInput | TeamMemberWhereInput[]
-    OR?: TeamMemberWhereInput[]
-    NOT?: TeamMemberWhereInput | TeamMemberWhereInput[]
-    id?: StringFilter<"TeamMember"> | string
-    userId?: StringFilter<"TeamMember"> | string
-    teamId?: StringFilter<"TeamMember"> | string
-    joinedAt?: DateTimeFilter<"TeamMember"> | Date | string
-    isActive?: BoolFilter<"TeamMember"> | boolean
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    team?: XOR<TeamRelationFilter, TeamWhereInput>
-  }
-
-  export type TeamMemberOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    teamId?: SortOrder
-    joinedAt?: SortOrder
-    isActive?: SortOrder
-    user?: UserOrderByWithRelationInput
-    team?: TeamOrderByWithRelationInput
-  }
-
-  export type TeamMemberWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    userId_teamId?: TeamMemberUserIdTeamIdCompoundUniqueInput
-    AND?: TeamMemberWhereInput | TeamMemberWhereInput[]
-    OR?: TeamMemberWhereInput[]
-    NOT?: TeamMemberWhereInput | TeamMemberWhereInput[]
-    userId?: StringFilter<"TeamMember"> | string
-    teamId?: StringFilter<"TeamMember"> | string
-    joinedAt?: DateTimeFilter<"TeamMember"> | Date | string
-    isActive?: BoolFilter<"TeamMember"> | boolean
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    team?: XOR<TeamRelationFilter, TeamWhereInput>
-  }, "id" | "userId_teamId">
-
-  export type TeamMemberOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    teamId?: SortOrder
-    joinedAt?: SortOrder
-    isActive?: SortOrder
-    _count?: TeamMemberCountOrderByAggregateInput
-    _max?: TeamMemberMaxOrderByAggregateInput
-    _min?: TeamMemberMinOrderByAggregateInput
-  }
-
-  export type TeamMemberScalarWhereWithAggregatesInput = {
-    AND?: TeamMemberScalarWhereWithAggregatesInput | TeamMemberScalarWhereWithAggregatesInput[]
-    OR?: TeamMemberScalarWhereWithAggregatesInput[]
-    NOT?: TeamMemberScalarWhereWithAggregatesInput | TeamMemberScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"TeamMember"> | string
-    userId?: StringWithAggregatesFilter<"TeamMember"> | string
-    teamId?: StringWithAggregatesFilter<"TeamMember"> | string
-    joinedAt?: DateTimeWithAggregatesFilter<"TeamMember"> | Date | string
-    isActive?: BoolWithAggregatesFilter<"TeamMember"> | boolean
-  }
-
   export type LeaveRequestWhereInput = {
     AND?: LeaveRequestWhereInput | LeaveRequestWhereInput[]
     OR?: LeaveRequestWhereInput[]
     NOT?: LeaveRequestWhereInput | LeaveRequestWhereInput[]
     id?: StringFilter<"LeaveRequest"> | string
     userId?: StringFilter<"LeaveRequest"> | string
-    teamId?: StringFilter<"LeaveRequest"> | string
     startDate?: DateTimeFilter<"LeaveRequest"> | Date | string
     endDate?: DateTimeFilter<"LeaveRequest"> | Date | string
     reason?: StringFilter<"LeaveRequest"> | string
+    type?: StringFilter<"LeaveRequest"> | string
     status?: StringFilter<"LeaveRequest"> | string
     approvedBy?: StringNullableFilter<"LeaveRequest"> | string | null
     comments?: StringNullableFilter<"LeaveRequest"> | string | null
     createdAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-    team?: XOR<TeamRelationFilter, TeamWhereInput>
     attachments?: AttachmentListRelationFilter
   }
 
   export type LeaveRequestOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     reason?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     approvedBy?: SortOrderInput | SortOrder
     comments?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    team?: TeamOrderByWithRelationInput
     attachments?: AttachmentOrderByRelationAggregateInput
   }
 
@@ -7400,27 +6189,26 @@ export namespace Prisma {
     OR?: LeaveRequestWhereInput[]
     NOT?: LeaveRequestWhereInput | LeaveRequestWhereInput[]
     userId?: StringFilter<"LeaveRequest"> | string
-    teamId?: StringFilter<"LeaveRequest"> | string
     startDate?: DateTimeFilter<"LeaveRequest"> | Date | string
     endDate?: DateTimeFilter<"LeaveRequest"> | Date | string
     reason?: StringFilter<"LeaveRequest"> | string
+    type?: StringFilter<"LeaveRequest"> | string
     status?: StringFilter<"LeaveRequest"> | string
     approvedBy?: StringNullableFilter<"LeaveRequest"> | string | null
     comments?: StringNullableFilter<"LeaveRequest"> | string | null
     createdAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     updatedAt?: DateTimeFilter<"LeaveRequest"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-    team?: XOR<TeamRelationFilter, TeamWhereInput>
     attachments?: AttachmentListRelationFilter
   }, "id">
 
   export type LeaveRequestOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     reason?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     approvedBy?: SortOrderInput | SortOrder
     comments?: SortOrderInput | SortOrder
@@ -7437,10 +6225,10 @@ export namespace Prisma {
     NOT?: LeaveRequestScalarWhereWithAggregatesInput | LeaveRequestScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"LeaveRequest"> | string
     userId?: StringWithAggregatesFilter<"LeaveRequest"> | string
-    teamId?: StringWithAggregatesFilter<"LeaveRequest"> | string
     startDate?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"LeaveRequest"> | Date | string
     reason?: StringWithAggregatesFilter<"LeaveRequest"> | string
+    type?: StringWithAggregatesFilter<"LeaveRequest"> | string
     status?: StringWithAggregatesFilter<"LeaveRequest"> | string
     approvedBy?: StringNullableWithAggregatesFilter<"LeaveRequest"> | string | null
     comments?: StringNullableWithAggregatesFilter<"LeaveRequest"> | string | null
@@ -7579,6 +6367,71 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Task"> | Date | string
   }
 
+  export type AttendanceWhereInput = {
+    AND?: AttendanceWhereInput | AttendanceWhereInput[]
+    OR?: AttendanceWhereInput[]
+    NOT?: AttendanceWhereInput | AttendanceWhereInput[]
+    id?: StringFilter<"Attendance"> | string
+    userId?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    status?: StringFilter<"Attendance"> | string
+    markedBy?: StringFilter<"Attendance"> | string
+    timeMarked?: DateTimeFilter<"Attendance"> | Date | string
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type AttendanceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    markedBy?: SortOrder
+    timeMarked?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AttendanceWhereInput | AttendanceWhereInput[]
+    OR?: AttendanceWhereInput[]
+    NOT?: AttendanceWhereInput | AttendanceWhereInput[]
+    userId?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    status?: StringFilter<"Attendance"> | string
+    markedBy?: StringFilter<"Attendance"> | string
+    timeMarked?: DateTimeFilter<"Attendance"> | Date | string
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type AttendanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    markedBy?: SortOrder
+    timeMarked?: SortOrder
+    createdAt?: SortOrder
+    _count?: AttendanceCountOrderByAggregateInput
+    _max?: AttendanceMaxOrderByAggregateInput
+    _min?: AttendanceMinOrderByAggregateInput
+  }
+
+  export type AttendanceScalarWhereWithAggregatesInput = {
+    AND?: AttendanceScalarWhereWithAggregatesInput | AttendanceScalarWhereWithAggregatesInput[]
+    OR?: AttendanceScalarWhereWithAggregatesInput[]
+    NOT?: AttendanceScalarWhereWithAggregatesInput | AttendanceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Attendance"> | string
+    userId?: StringWithAggregatesFilter<"Attendance"> | string
+    date?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+    status?: StringWithAggregatesFilter<"Attendance"> | string
+    markedBy?: StringWithAggregatesFilter<"Attendance"> | string
+    timeMarked?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     username: string
@@ -7590,9 +6443,8 @@ export namespace Prisma {
     department: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    managedTeams?: TeamCreateNestedManyWithoutManagerInput
-    teams?: TeamMemberCreateNestedManyWithoutUserInput
     leaveRequests?: LeaveRequestCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7606,9 +6458,8 @@ export namespace Prisma {
     department: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    managedTeams?: TeamUncheckedCreateNestedManyWithoutManagerInput
-    teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
     leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7622,9 +6473,8 @@ export namespace Prisma {
     department?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    managedTeams?: TeamUpdateManyWithoutManagerNestedInput
-    teams?: TeamMemberUpdateManyWithoutUserNestedInput
     leaveRequests?: LeaveRequestUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7638,9 +6488,8 @@ export namespace Prisma {
     department?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    managedTeams?: TeamUncheckedUpdateManyWithoutManagerNestedInput
-    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
     leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7682,145 +6531,28 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TeamCreateInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    manager: UserCreateNestedOneWithoutManagedTeamsInput
-    leaveRequests?: LeaveRequestCreateNestedManyWithoutTeamInput
-    members?: TeamMemberCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamUncheckedCreateInput = {
-    id?: string
-    name: string
-    managerId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutTeamInput
-    members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    manager?: UserUpdateOneRequiredWithoutManagedTeamsNestedInput
-    leaveRequests?: LeaveRequestUpdateManyWithoutTeamNestedInput
-    members?: TeamMemberUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    managerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutTeamNestedInput
-    members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamCreateManyInput = {
-    id?: string
-    name: string
-    managerId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TeamUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TeamUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    managerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TeamMemberCreateInput = {
-    id?: string
-    joinedAt?: Date | string
-    isActive?: boolean
-    user: UserCreateNestedOneWithoutTeamsInput
-    team: TeamCreateNestedOneWithoutMembersInput
-  }
-
-  export type TeamMemberUncheckedCreateInput = {
-    id?: string
-    userId: string
-    teamId: string
-    joinedAt?: Date | string
-    isActive?: boolean
-  }
-
-  export type TeamMemberUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutTeamsNestedInput
-    team?: TeamUpdateOneRequiredWithoutMembersNestedInput
-  }
-
-  export type TeamMemberUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type TeamMemberCreateManyInput = {
-    id?: string
-    userId: string
-    teamId: string
-    joinedAt?: Date | string
-    isActive?: boolean
-  }
-
-  export type TeamMemberUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type TeamMemberUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-  }
-
   export type LeaveRequestCreateInput = {
     id?: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutLeaveRequestsInput
-    team: TeamCreateNestedOneWithoutLeaveRequestsInput
     attachments?: AttachmentCreateNestedManyWithoutLeaveRequestInput
   }
 
   export type LeaveRequestUncheckedCreateInput = {
     id?: string
     userId: string
-    teamId: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
@@ -7834,23 +6566,23 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLeaveRequestsNestedInput
-    team?: TeamUpdateOneRequiredWithoutLeaveRequestsNestedInput
     attachments?: AttachmentUpdateManyWithoutLeaveRequestNestedInput
   }
 
   export type LeaveRequestUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7862,10 +6594,10 @@ export namespace Prisma {
   export type LeaveRequestCreateManyInput = {
     id?: string
     userId: string
-    teamId: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
@@ -7878,6 +6610,7 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7888,10 +6621,10 @@ export namespace Prisma {
   export type LeaveRequestUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8035,6 +6768,75 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AttendanceCreateInput = {
+    id?: string
+    date: Date | string
+    status: string
+    markedBy: string
+    timeMarked?: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAttendancesInput
+  }
+
+  export type AttendanceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    status: string
+    markedBy: string
+    timeMarked?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type AttendanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAttendancesNestedInput
+  }
+
+  export type AttendanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceCreateManyInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    status: string
+    markedBy: string
+    timeMarked?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type AttendanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AttendanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -8060,33 +6862,23 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type TeamListRelationFilter = {
-    every?: TeamWhereInput
-    some?: TeamWhereInput
-    none?: TeamWhereInput
-  }
-
-  export type TeamMemberListRelationFilter = {
-    every?: TeamMemberWhereInput
-    some?: TeamMemberWhereInput
-    none?: TeamMemberWhereInput
-  }
-
   export type LeaveRequestListRelationFilter = {
     every?: LeaveRequestWhereInput
     some?: LeaveRequestWhereInput
     none?: LeaveRequestWhereInput
   }
 
-  export type TeamOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type TeamMemberOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type AttendanceListRelationFilter = {
+    every?: AttendanceWhereInput
+    some?: AttendanceWhereInput
+    none?: AttendanceWhereInput
   }
 
   export type LeaveRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AttendanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8160,82 +6952,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type TeamCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    managerId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type TeamMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    managerId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type TeamMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    managerId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type TeamRelationFilter = {
-    is?: TeamWhereInput
-    isNot?: TeamWhereInput
-  }
-
-  export type TeamMemberUserIdTeamIdCompoundUniqueInput = {
-    userId: string
-    teamId: string
-  }
-
-  export type TeamMemberCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    teamId?: SortOrder
-    joinedAt?: SortOrder
-    isActive?: SortOrder
-  }
-
-  export type TeamMemberMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    teamId?: SortOrder
-    joinedAt?: SortOrder
-    isActive?: SortOrder
-  }
-
-  export type TeamMemberMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    teamId?: SortOrder
-    joinedAt?: SortOrder
-    isActive?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -8248,6 +6964,11 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type AttachmentListRelationFilter = {
@@ -8268,10 +6989,10 @@ export namespace Prisma {
   export type LeaveRequestCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     reason?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     approvedBy?: SortOrder
     comments?: SortOrder
@@ -8282,10 +7003,10 @@ export namespace Prisma {
   export type LeaveRequestMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     reason?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     approvedBy?: SortOrder
     comments?: SortOrder
@@ -8296,10 +7017,10 @@ export namespace Prisma {
   export type LeaveRequestMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    teamId?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
     reason?: SortOrder
+    type?: SortOrder
     status?: SortOrder
     approvedBy?: SortOrder
     comments?: SortOrder
@@ -8432,18 +7153,34 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type TeamCreateNestedManyWithoutManagerInput = {
-    create?: XOR<TeamCreateWithoutManagerInput, TeamUncheckedCreateWithoutManagerInput> | TeamCreateWithoutManagerInput[] | TeamUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutManagerInput | TeamCreateOrConnectWithoutManagerInput[]
-    createMany?: TeamCreateManyManagerInputEnvelope
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
+  export type AttendanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    markedBy?: SortOrder
+    timeMarked?: SortOrder
+    createdAt?: SortOrder
   }
 
-  export type TeamMemberCreateNestedManyWithoutUserInput = {
-    create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
-    createMany?: TeamMemberCreateManyUserInputEnvelope
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
+  export type AttendanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    markedBy?: SortOrder
+    timeMarked?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AttendanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    status?: SortOrder
+    markedBy?: SortOrder
+    timeMarked?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type LeaveRequestCreateNestedManyWithoutUserInput = {
@@ -8453,18 +7190,11 @@ export namespace Prisma {
     connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
   }
 
-  export type TeamUncheckedCreateNestedManyWithoutManagerInput = {
-    create?: XOR<TeamCreateWithoutManagerInput, TeamUncheckedCreateWithoutManagerInput> | TeamCreateWithoutManagerInput[] | TeamUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutManagerInput | TeamCreateOrConnectWithoutManagerInput[]
-    createMany?: TeamCreateManyManagerInputEnvelope
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-  }
-
-  export type TeamMemberUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
-    createMany?: TeamMemberCreateManyUserInputEnvelope
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
+  export type AttendanceCreateNestedManyWithoutUserInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
   }
 
   export type LeaveRequestUncheckedCreateNestedManyWithoutUserInput = {
@@ -8474,40 +7204,19 @@ export namespace Prisma {
     connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
   }
 
+  export type AttendanceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type TeamUpdateManyWithoutManagerNestedInput = {
-    create?: XOR<TeamCreateWithoutManagerInput, TeamUncheckedCreateWithoutManagerInput> | TeamCreateWithoutManagerInput[] | TeamUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutManagerInput | TeamCreateOrConnectWithoutManagerInput[]
-    upsert?: TeamUpsertWithWhereUniqueWithoutManagerInput | TeamUpsertWithWhereUniqueWithoutManagerInput[]
-    createMany?: TeamCreateManyManagerInputEnvelope
-    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    update?: TeamUpdateWithWhereUniqueWithoutManagerInput | TeamUpdateWithWhereUniqueWithoutManagerInput[]
-    updateMany?: TeamUpdateManyWithWhereWithoutManagerInput | TeamUpdateManyWithWhereWithoutManagerInput[]
-    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
-  }
-
-  export type TeamMemberUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
-    upsert?: TeamMemberUpsertWithWhereUniqueWithoutUserInput | TeamMemberUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TeamMemberCreateManyUserInputEnvelope
-    set?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    disconnect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    delete?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    update?: TeamMemberUpdateWithWhereUniqueWithoutUserInput | TeamMemberUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TeamMemberUpdateManyWithWhereWithoutUserInput | TeamMemberUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
   }
 
   export type LeaveRequestUpdateManyWithoutUserNestedInput = {
@@ -8524,32 +7233,18 @@ export namespace Prisma {
     deleteMany?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
   }
 
-  export type TeamUncheckedUpdateManyWithoutManagerNestedInput = {
-    create?: XOR<TeamCreateWithoutManagerInput, TeamUncheckedCreateWithoutManagerInput> | TeamCreateWithoutManagerInput[] | TeamUncheckedCreateWithoutManagerInput[]
-    connectOrCreate?: TeamCreateOrConnectWithoutManagerInput | TeamCreateOrConnectWithoutManagerInput[]
-    upsert?: TeamUpsertWithWhereUniqueWithoutManagerInput | TeamUpsertWithWhereUniqueWithoutManagerInput[]
-    createMany?: TeamCreateManyManagerInputEnvelope
-    set?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    disconnect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    delete?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    connect?: TeamWhereUniqueInput | TeamWhereUniqueInput[]
-    update?: TeamUpdateWithWhereUniqueWithoutManagerInput | TeamUpdateWithWhereUniqueWithoutManagerInput[]
-    updateMany?: TeamUpdateManyWithWhereWithoutManagerInput | TeamUpdateManyWithWhereWithoutManagerInput[]
-    deleteMany?: TeamScalarWhereInput | TeamScalarWhereInput[]
-  }
-
-  export type TeamMemberUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
-    upsert?: TeamMemberUpsertWithWhereUniqueWithoutUserInput | TeamMemberUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TeamMemberCreateManyUserInputEnvelope
-    set?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    disconnect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    delete?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    update?: TeamMemberUpdateWithWhereUniqueWithoutUserInput | TeamMemberUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TeamMemberUpdateManyWithWhereWithoutUserInput | TeamMemberUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
+  export type AttendanceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutUserInput | AttendanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutUserInput | AttendanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutUserInput | AttendanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
   }
 
   export type LeaveRequestUncheckedUpdateManyWithoutUserNestedInput = {
@@ -8566,146 +7261,24 @@ export namespace Prisma {
     deleteMany?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutManagedTeamsInput = {
-    create?: XOR<UserCreateWithoutManagedTeamsInput, UserUncheckedCreateWithoutManagedTeamsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutManagedTeamsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type LeaveRequestCreateNestedManyWithoutTeamInput = {
-    create?: XOR<LeaveRequestCreateWithoutTeamInput, LeaveRequestUncheckedCreateWithoutTeamInput> | LeaveRequestCreateWithoutTeamInput[] | LeaveRequestUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: LeaveRequestCreateOrConnectWithoutTeamInput | LeaveRequestCreateOrConnectWithoutTeamInput[]
-    createMany?: LeaveRequestCreateManyTeamInputEnvelope
-    connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-  }
-
-  export type TeamMemberCreateNestedManyWithoutTeamInput = {
-    create?: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput> | TeamMemberCreateWithoutTeamInput[] | TeamMemberUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutTeamInput | TeamMemberCreateOrConnectWithoutTeamInput[]
-    createMany?: TeamMemberCreateManyTeamInputEnvelope
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-  }
-
-  export type LeaveRequestUncheckedCreateNestedManyWithoutTeamInput = {
-    create?: XOR<LeaveRequestCreateWithoutTeamInput, LeaveRequestUncheckedCreateWithoutTeamInput> | LeaveRequestCreateWithoutTeamInput[] | LeaveRequestUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: LeaveRequestCreateOrConnectWithoutTeamInput | LeaveRequestCreateOrConnectWithoutTeamInput[]
-    createMany?: LeaveRequestCreateManyTeamInputEnvelope
-    connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-  }
-
-  export type TeamMemberUncheckedCreateNestedManyWithoutTeamInput = {
-    create?: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput> | TeamMemberCreateWithoutTeamInput[] | TeamMemberUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutTeamInput | TeamMemberCreateOrConnectWithoutTeamInput[]
-    createMany?: TeamMemberCreateManyTeamInputEnvelope
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-  }
-
-  export type UserUpdateOneRequiredWithoutManagedTeamsNestedInput = {
-    create?: XOR<UserCreateWithoutManagedTeamsInput, UserUncheckedCreateWithoutManagedTeamsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutManagedTeamsInput
-    upsert?: UserUpsertWithoutManagedTeamsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutManagedTeamsInput, UserUpdateWithoutManagedTeamsInput>, UserUncheckedUpdateWithoutManagedTeamsInput>
-  }
-
-  export type LeaveRequestUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<LeaveRequestCreateWithoutTeamInput, LeaveRequestUncheckedCreateWithoutTeamInput> | LeaveRequestCreateWithoutTeamInput[] | LeaveRequestUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: LeaveRequestCreateOrConnectWithoutTeamInput | LeaveRequestCreateOrConnectWithoutTeamInput[]
-    upsert?: LeaveRequestUpsertWithWhereUniqueWithoutTeamInput | LeaveRequestUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: LeaveRequestCreateManyTeamInputEnvelope
-    set?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    disconnect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    delete?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    update?: LeaveRequestUpdateWithWhereUniqueWithoutTeamInput | LeaveRequestUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: LeaveRequestUpdateManyWithWhereWithoutTeamInput | LeaveRequestUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
-  }
-
-  export type TeamMemberUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput> | TeamMemberCreateWithoutTeamInput[] | TeamMemberUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutTeamInput | TeamMemberCreateOrConnectWithoutTeamInput[]
-    upsert?: TeamMemberUpsertWithWhereUniqueWithoutTeamInput | TeamMemberUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: TeamMemberCreateManyTeamInputEnvelope
-    set?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    disconnect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    delete?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    update?: TeamMemberUpdateWithWhereUniqueWithoutTeamInput | TeamMemberUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: TeamMemberUpdateManyWithWhereWithoutTeamInput | TeamMemberUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
-  }
-
-  export type LeaveRequestUncheckedUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<LeaveRequestCreateWithoutTeamInput, LeaveRequestUncheckedCreateWithoutTeamInput> | LeaveRequestCreateWithoutTeamInput[] | LeaveRequestUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: LeaveRequestCreateOrConnectWithoutTeamInput | LeaveRequestCreateOrConnectWithoutTeamInput[]
-    upsert?: LeaveRequestUpsertWithWhereUniqueWithoutTeamInput | LeaveRequestUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: LeaveRequestCreateManyTeamInputEnvelope
-    set?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    disconnect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    delete?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    connect?: LeaveRequestWhereUniqueInput | LeaveRequestWhereUniqueInput[]
-    update?: LeaveRequestUpdateWithWhereUniqueWithoutTeamInput | LeaveRequestUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: LeaveRequestUpdateManyWithWhereWithoutTeamInput | LeaveRequestUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
-  }
-
-  export type TeamMemberUncheckedUpdateManyWithoutTeamNestedInput = {
-    create?: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput> | TeamMemberCreateWithoutTeamInput[] | TeamMemberUncheckedCreateWithoutTeamInput[]
-    connectOrCreate?: TeamMemberCreateOrConnectWithoutTeamInput | TeamMemberCreateOrConnectWithoutTeamInput[]
-    upsert?: TeamMemberUpsertWithWhereUniqueWithoutTeamInput | TeamMemberUpsertWithWhereUniqueWithoutTeamInput[]
-    createMany?: TeamMemberCreateManyTeamInputEnvelope
-    set?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    disconnect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    delete?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    connect?: TeamMemberWhereUniqueInput | TeamMemberWhereUniqueInput[]
-    update?: TeamMemberUpdateWithWhereUniqueWithoutTeamInput | TeamMemberUpdateWithWhereUniqueWithoutTeamInput[]
-    updateMany?: TeamMemberUpdateManyWithWhereWithoutTeamInput | TeamMemberUpdateManyWithWhereWithoutTeamInput[]
-    deleteMany?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutTeamsInput = {
-    create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTeamsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type TeamCreateNestedOneWithoutMembersInput = {
-    create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutMembersInput
-    connect?: TeamWhereUniqueInput
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type UserUpdateOneRequiredWithoutTeamsNestedInput = {
-    create?: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTeamsInput
-    upsert?: UserUpsertWithoutTeamsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTeamsInput, UserUpdateWithoutTeamsInput>, UserUncheckedUpdateWithoutTeamsInput>
-  }
-
-  export type TeamUpdateOneRequiredWithoutMembersNestedInput = {
-    create?: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutMembersInput
-    upsert?: TeamUpsertWithoutMembersInput
-    connect?: TeamWhereUniqueInput
-    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutMembersInput, TeamUpdateWithoutMembersInput>, TeamUncheckedUpdateWithoutMembersInput>
+  export type AttendanceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput> | AttendanceCreateWithoutUserInput[] | AttendanceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AttendanceCreateOrConnectWithoutUserInput | AttendanceCreateOrConnectWithoutUserInput[]
+    upsert?: AttendanceUpsertWithWhereUniqueWithoutUserInput | AttendanceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AttendanceCreateManyUserInputEnvelope
+    set?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    disconnect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    delete?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+    update?: AttendanceUpdateWithWhereUniqueWithoutUserInput | AttendanceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AttendanceUpdateManyWithWhereWithoutUserInput | AttendanceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutLeaveRequestsInput = {
     create?: XOR<UserCreateWithoutLeaveRequestsInput, UserUncheckedCreateWithoutLeaveRequestsInput>
     connectOrCreate?: UserCreateOrConnectWithoutLeaveRequestsInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type TeamCreateNestedOneWithoutLeaveRequestsInput = {
-    create?: XOR<TeamCreateWithoutLeaveRequestsInput, TeamUncheckedCreateWithoutLeaveRequestsInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutLeaveRequestsInput
-    connect?: TeamWhereUniqueInput
   }
 
   export type AttachmentCreateNestedManyWithoutLeaveRequestInput = {
@@ -8732,14 +7305,6 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutLeaveRequestsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLeaveRequestsInput, UserUpdateWithoutLeaveRequestsInput>, UserUncheckedUpdateWithoutLeaveRequestsInput>
-  }
-
-  export type TeamUpdateOneRequiredWithoutLeaveRequestsNestedInput = {
-    create?: XOR<TeamCreateWithoutLeaveRequestsInput, TeamUncheckedCreateWithoutLeaveRequestsInput>
-    connectOrCreate?: TeamCreateOrConnectWithoutLeaveRequestsInput
-    upsert?: TeamUpsertWithoutLeaveRequestsInput
-    connect?: TeamWhereUniqueInput
-    update?: XOR<XOR<TeamUpdateToOneWithWhereWithoutLeaveRequestsInput, TeamUpdateWithoutLeaveRequestsInput>, TeamUncheckedUpdateWithoutLeaveRequestsInput>
   }
 
   export type AttachmentUpdateManyWithoutLeaveRequestNestedInput = {
@@ -8792,6 +7357,20 @@ export namespace Prisma {
     delete?: LeaveRequestWhereInput | boolean
     connect?: LeaveRequestWhereUniqueInput
     update?: XOR<XOR<LeaveRequestUpdateToOneWithWhereWithoutAttachmentsInput, LeaveRequestUpdateWithoutAttachmentsInput>, LeaveRequestUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAttendancesInput = {
+    create?: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAttendancesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutAttendancesNestedInput = {
+    create?: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAttendancesInput
+    upsert?: UserUpsertWithoutAttendancesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAttendancesInput, UserUpdateWithoutAttendancesInput>, UserUncheckedUpdateWithoutAttendancesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8859,19 +7438,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -8943,78 +7509,26 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type TeamCreateWithoutManagerInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    leaveRequests?: LeaveRequestCreateNestedManyWithoutTeamInput
-    members?: TeamMemberCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamUncheckedCreateWithoutManagerInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutTeamInput
-    members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamCreateOrConnectWithoutManagerInput = {
-    where: TeamWhereUniqueInput
-    create: XOR<TeamCreateWithoutManagerInput, TeamUncheckedCreateWithoutManagerInput>
-  }
-
-  export type TeamCreateManyManagerInputEnvelope = {
-    data: TeamCreateManyManagerInput | TeamCreateManyManagerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TeamMemberCreateWithoutUserInput = {
-    id?: string
-    joinedAt?: Date | string
-    isActive?: boolean
-    team: TeamCreateNestedOneWithoutMembersInput
-  }
-
-  export type TeamMemberUncheckedCreateWithoutUserInput = {
-    id?: string
-    teamId: string
-    joinedAt?: Date | string
-    isActive?: boolean
-  }
-
-  export type TeamMemberCreateOrConnectWithoutUserInput = {
-    where: TeamMemberWhereUniqueInput
-    create: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput>
-  }
-
-  export type TeamMemberCreateManyUserInputEnvelope = {
-    data: TeamMemberCreateManyUserInput | TeamMemberCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type LeaveRequestCreateWithoutUserInput = {
     id?: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    team: TeamCreateNestedOneWithoutLeaveRequestsInput
     attachments?: AttachmentCreateNestedManyWithoutLeaveRequestInput
   }
 
   export type LeaveRequestUncheckedCreateWithoutUserInput = {
     id?: string
-    teamId: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
@@ -9033,58 +7547,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TeamUpsertWithWhereUniqueWithoutManagerInput = {
-    where: TeamWhereUniqueInput
-    update: XOR<TeamUpdateWithoutManagerInput, TeamUncheckedUpdateWithoutManagerInput>
-    create: XOR<TeamCreateWithoutManagerInput, TeamUncheckedCreateWithoutManagerInput>
+  export type AttendanceCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    status: string
+    markedBy: string
+    timeMarked?: Date | string
+    createdAt?: Date | string
   }
 
-  export type TeamUpdateWithWhereUniqueWithoutManagerInput = {
-    where: TeamWhereUniqueInput
-    data: XOR<TeamUpdateWithoutManagerInput, TeamUncheckedUpdateWithoutManagerInput>
+  export type AttendanceUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    status: string
+    markedBy: string
+    timeMarked?: Date | string
+    createdAt?: Date | string
   }
 
-  export type TeamUpdateManyWithWhereWithoutManagerInput = {
-    where: TeamScalarWhereInput
-    data: XOR<TeamUpdateManyMutationInput, TeamUncheckedUpdateManyWithoutManagerInput>
+  export type AttendanceCreateOrConnectWithoutUserInput = {
+    where: AttendanceWhereUniqueInput
+    create: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput>
   }
 
-  export type TeamScalarWhereInput = {
-    AND?: TeamScalarWhereInput | TeamScalarWhereInput[]
-    OR?: TeamScalarWhereInput[]
-    NOT?: TeamScalarWhereInput | TeamScalarWhereInput[]
-    id?: StringFilter<"Team"> | string
-    name?: StringFilter<"Team"> | string
-    managerId?: StringFilter<"Team"> | string
-    createdAt?: DateTimeFilter<"Team"> | Date | string
-    updatedAt?: DateTimeFilter<"Team"> | Date | string
-  }
-
-  export type TeamMemberUpsertWithWhereUniqueWithoutUserInput = {
-    where: TeamMemberWhereUniqueInput
-    update: XOR<TeamMemberUpdateWithoutUserInput, TeamMemberUncheckedUpdateWithoutUserInput>
-    create: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput>
-  }
-
-  export type TeamMemberUpdateWithWhereUniqueWithoutUserInput = {
-    where: TeamMemberWhereUniqueInput
-    data: XOR<TeamMemberUpdateWithoutUserInput, TeamMemberUncheckedUpdateWithoutUserInput>
-  }
-
-  export type TeamMemberUpdateManyWithWhereWithoutUserInput = {
-    where: TeamMemberScalarWhereInput
-    data: XOR<TeamMemberUpdateManyMutationInput, TeamMemberUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type TeamMemberScalarWhereInput = {
-    AND?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
-    OR?: TeamMemberScalarWhereInput[]
-    NOT?: TeamMemberScalarWhereInput | TeamMemberScalarWhereInput[]
-    id?: StringFilter<"TeamMember"> | string
-    userId?: StringFilter<"TeamMember"> | string
-    teamId?: StringFilter<"TeamMember"> | string
-    joinedAt?: DateTimeFilter<"TeamMember"> | Date | string
-    isActive?: BoolFilter<"TeamMember"> | boolean
+  export type AttendanceCreateManyUserInputEnvelope = {
+    data: AttendanceCreateManyUserInput | AttendanceCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type LeaveRequestUpsertWithWhereUniqueWithoutUserInput = {
@@ -9109,10 +7597,10 @@ export namespace Prisma {
     NOT?: LeaveRequestScalarWhereInput | LeaveRequestScalarWhereInput[]
     id?: StringFilter<"LeaveRequest"> | string
     userId?: StringFilter<"LeaveRequest"> | string
-    teamId?: StringFilter<"LeaveRequest"> | string
     startDate?: DateTimeFilter<"LeaveRequest"> | Date | string
     endDate?: DateTimeFilter<"LeaveRequest"> | Date | string
     reason?: StringFilter<"LeaveRequest"> | string
+    type?: StringFilter<"LeaveRequest"> | string
     status?: StringFilter<"LeaveRequest"> | string
     approvedBy?: StringNullableFilter<"LeaveRequest"> | string | null
     comments?: StringNullableFilter<"LeaveRequest"> | string | null
@@ -9120,302 +7608,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"LeaveRequest"> | Date | string
   }
 
-  export type UserCreateWithoutManagedTeamsInput = {
-    id?: string
-    username: string
-    email: string
-    firstName: string
-    lastName: string
-    password: string
-    role: string
-    department: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    teams?: TeamMemberCreateNestedManyWithoutUserInput
-    leaveRequests?: LeaveRequestCreateNestedManyWithoutUserInput
+  export type AttendanceUpsertWithWhereUniqueWithoutUserInput = {
+    where: AttendanceWhereUniqueInput
+    update: XOR<AttendanceUpdateWithoutUserInput, AttendanceUncheckedUpdateWithoutUserInput>
+    create: XOR<AttendanceCreateWithoutUserInput, AttendanceUncheckedCreateWithoutUserInput>
   }
 
-  export type UserUncheckedCreateWithoutManagedTeamsInput = {
-    id?: string
-    username: string
-    email: string
-    firstName: string
-    lastName: string
-    password: string
-    role: string
-    department: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
-    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutUserInput
+  export type AttendanceUpdateWithWhereUniqueWithoutUserInput = {
+    where: AttendanceWhereUniqueInput
+    data: XOR<AttendanceUpdateWithoutUserInput, AttendanceUncheckedUpdateWithoutUserInput>
   }
 
-  export type UserCreateOrConnectWithoutManagedTeamsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutManagedTeamsInput, UserUncheckedCreateWithoutManagedTeamsInput>
+  export type AttendanceUpdateManyWithWhereWithoutUserInput = {
+    where: AttendanceScalarWhereInput
+    data: XOR<AttendanceUpdateManyMutationInput, AttendanceUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type LeaveRequestCreateWithoutTeamInput = {
-    id?: string
-    startDate: Date | string
-    endDate: Date | string
-    reason: string
-    status?: string
-    approvedBy?: string | null
-    comments?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutLeaveRequestsInput
-    attachments?: AttachmentCreateNestedManyWithoutLeaveRequestInput
-  }
-
-  export type LeaveRequestUncheckedCreateWithoutTeamInput = {
-    id?: string
-    userId: string
-    startDate: Date | string
-    endDate: Date | string
-    reason: string
-    status?: string
-    approvedBy?: string | null
-    comments?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    attachments?: AttachmentUncheckedCreateNestedManyWithoutLeaveRequestInput
-  }
-
-  export type LeaveRequestCreateOrConnectWithoutTeamInput = {
-    where: LeaveRequestWhereUniqueInput
-    create: XOR<LeaveRequestCreateWithoutTeamInput, LeaveRequestUncheckedCreateWithoutTeamInput>
-  }
-
-  export type LeaveRequestCreateManyTeamInputEnvelope = {
-    data: LeaveRequestCreateManyTeamInput | LeaveRequestCreateManyTeamInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TeamMemberCreateWithoutTeamInput = {
-    id?: string
-    joinedAt?: Date | string
-    isActive?: boolean
-    user: UserCreateNestedOneWithoutTeamsInput
-  }
-
-  export type TeamMemberUncheckedCreateWithoutTeamInput = {
-    id?: string
-    userId: string
-    joinedAt?: Date | string
-    isActive?: boolean
-  }
-
-  export type TeamMemberCreateOrConnectWithoutTeamInput = {
-    where: TeamMemberWhereUniqueInput
-    create: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput>
-  }
-
-  export type TeamMemberCreateManyTeamInputEnvelope = {
-    data: TeamMemberCreateManyTeamInput | TeamMemberCreateManyTeamInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutManagedTeamsInput = {
-    update: XOR<UserUpdateWithoutManagedTeamsInput, UserUncheckedUpdateWithoutManagedTeamsInput>
-    create: XOR<UserCreateWithoutManagedTeamsInput, UserUncheckedCreateWithoutManagedTeamsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutManagedTeamsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutManagedTeamsInput, UserUncheckedUpdateWithoutManagedTeamsInput>
-  }
-
-  export type UserUpdateWithoutManagedTeamsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    department?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    teams?: TeamMemberUpdateManyWithoutUserNestedInput
-    leaveRequests?: LeaveRequestUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutManagedTeamsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    department?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type LeaveRequestUpsertWithWhereUniqueWithoutTeamInput = {
-    where: LeaveRequestWhereUniqueInput
-    update: XOR<LeaveRequestUpdateWithoutTeamInput, LeaveRequestUncheckedUpdateWithoutTeamInput>
-    create: XOR<LeaveRequestCreateWithoutTeamInput, LeaveRequestUncheckedCreateWithoutTeamInput>
-  }
-
-  export type LeaveRequestUpdateWithWhereUniqueWithoutTeamInput = {
-    where: LeaveRequestWhereUniqueInput
-    data: XOR<LeaveRequestUpdateWithoutTeamInput, LeaveRequestUncheckedUpdateWithoutTeamInput>
-  }
-
-  export type LeaveRequestUpdateManyWithWhereWithoutTeamInput = {
-    where: LeaveRequestScalarWhereInput
-    data: XOR<LeaveRequestUpdateManyMutationInput, LeaveRequestUncheckedUpdateManyWithoutTeamInput>
-  }
-
-  export type TeamMemberUpsertWithWhereUniqueWithoutTeamInput = {
-    where: TeamMemberWhereUniqueInput
-    update: XOR<TeamMemberUpdateWithoutTeamInput, TeamMemberUncheckedUpdateWithoutTeamInput>
-    create: XOR<TeamMemberCreateWithoutTeamInput, TeamMemberUncheckedCreateWithoutTeamInput>
-  }
-
-  export type TeamMemberUpdateWithWhereUniqueWithoutTeamInput = {
-    where: TeamMemberWhereUniqueInput
-    data: XOR<TeamMemberUpdateWithoutTeamInput, TeamMemberUncheckedUpdateWithoutTeamInput>
-  }
-
-  export type TeamMemberUpdateManyWithWhereWithoutTeamInput = {
-    where: TeamMemberScalarWhereInput
-    data: XOR<TeamMemberUpdateManyMutationInput, TeamMemberUncheckedUpdateManyWithoutTeamInput>
-  }
-
-  export type UserCreateWithoutTeamsInput = {
-    id?: string
-    username: string
-    email: string
-    firstName: string
-    lastName: string
-    password: string
-    role: string
-    department: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    managedTeams?: TeamCreateNestedManyWithoutManagerInput
-    leaveRequests?: LeaveRequestCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutTeamsInput = {
-    id?: string
-    username: string
-    email: string
-    firstName: string
-    lastName: string
-    password: string
-    role: string
-    department: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    managedTeams?: TeamUncheckedCreateNestedManyWithoutManagerInput
-    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutTeamsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
-  }
-
-  export type TeamCreateWithoutMembersInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    manager: UserCreateNestedOneWithoutManagedTeamsInput
-    leaveRequests?: LeaveRequestCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamUncheckedCreateWithoutMembersInput = {
-    id?: string
-    name: string
-    managerId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamCreateOrConnectWithoutMembersInput = {
-    where: TeamWhereUniqueInput
-    create: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
-  }
-
-  export type UserUpsertWithoutTeamsInput = {
-    update: XOR<UserUpdateWithoutTeamsInput, UserUncheckedUpdateWithoutTeamsInput>
-    create: XOR<UserCreateWithoutTeamsInput, UserUncheckedCreateWithoutTeamsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutTeamsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTeamsInput, UserUncheckedUpdateWithoutTeamsInput>
-  }
-
-  export type UserUpdateWithoutTeamsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    department?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    managedTeams?: TeamUpdateManyWithoutManagerNestedInput
-    leaveRequests?: LeaveRequestUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutTeamsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    department?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    managedTeams?: TeamUncheckedUpdateManyWithoutManagerNestedInput
-    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TeamUpsertWithoutMembersInput = {
-    update: XOR<TeamUpdateWithoutMembersInput, TeamUncheckedUpdateWithoutMembersInput>
-    create: XOR<TeamCreateWithoutMembersInput, TeamUncheckedCreateWithoutMembersInput>
-    where?: TeamWhereInput
-  }
-
-  export type TeamUpdateToOneWithWhereWithoutMembersInput = {
-    where?: TeamWhereInput
-    data: XOR<TeamUpdateWithoutMembersInput, TeamUncheckedUpdateWithoutMembersInput>
-  }
-
-  export type TeamUpdateWithoutMembersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    manager?: UserUpdateOneRequiredWithoutManagedTeamsNestedInput
-    leaveRequests?: LeaveRequestUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateWithoutMembersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    managerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutTeamNestedInput
+  export type AttendanceScalarWhereInput = {
+    AND?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    OR?: AttendanceScalarWhereInput[]
+    NOT?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+    id?: StringFilter<"Attendance"> | string
+    userId?: StringFilter<"Attendance"> | string
+    date?: DateTimeFilter<"Attendance"> | Date | string
+    status?: StringFilter<"Attendance"> | string
+    markedBy?: StringFilter<"Attendance"> | string
+    timeMarked?: DateTimeFilter<"Attendance"> | Date | string
+    createdAt?: DateTimeFilter<"Attendance"> | Date | string
   }
 
   export type UserCreateWithoutLeaveRequestsInput = {
@@ -9429,8 +7648,7 @@ export namespace Prisma {
     department: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    managedTeams?: TeamCreateNestedManyWithoutManagerInput
-    teams?: TeamMemberCreateNestedManyWithoutUserInput
+    attendances?: AttendanceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLeaveRequestsInput = {
@@ -9444,36 +7662,12 @@ export namespace Prisma {
     department: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    managedTeams?: TeamUncheckedCreateNestedManyWithoutManagerInput
-    teams?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    attendances?: AttendanceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLeaveRequestsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutLeaveRequestsInput, UserUncheckedCreateWithoutLeaveRequestsInput>
-  }
-
-  export type TeamCreateWithoutLeaveRequestsInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    manager: UserCreateNestedOneWithoutManagedTeamsInput
-    members?: TeamMemberCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamUncheckedCreateWithoutLeaveRequestsInput = {
-    id?: string
-    name: string
-    managerId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
-  }
-
-  export type TeamCreateOrConnectWithoutLeaveRequestsInput = {
-    where: TeamWhereUniqueInput
-    create: XOR<TeamCreateWithoutLeaveRequestsInput, TeamUncheckedCreateWithoutLeaveRequestsInput>
   }
 
   export type AttachmentCreateWithoutLeaveRequestInput = {
@@ -9530,8 +7724,7 @@ export namespace Prisma {
     department?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    managedTeams?: TeamUpdateManyWithoutManagerNestedInput
-    teams?: TeamMemberUpdateManyWithoutUserNestedInput
+    attendances?: AttendanceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeaveRequestsInput = {
@@ -9545,37 +7738,7 @@ export namespace Prisma {
     department?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    managedTeams?: TeamUncheckedUpdateManyWithoutManagerNestedInput
-    teams?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TeamUpsertWithoutLeaveRequestsInput = {
-    update: XOR<TeamUpdateWithoutLeaveRequestsInput, TeamUncheckedUpdateWithoutLeaveRequestsInput>
-    create: XOR<TeamCreateWithoutLeaveRequestsInput, TeamUncheckedCreateWithoutLeaveRequestsInput>
-    where?: TeamWhereInput
-  }
-
-  export type TeamUpdateToOneWithWhereWithoutLeaveRequestsInput = {
-    where?: TeamWhereInput
-    data: XOR<TeamUpdateWithoutLeaveRequestsInput, TeamUncheckedUpdateWithoutLeaveRequestsInput>
-  }
-
-  export type TeamUpdateWithoutLeaveRequestsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    manager?: UserUpdateOneRequiredWithoutManagedTeamsNestedInput
-    members?: TeamMemberUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateWithoutLeaveRequestsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    managerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
+    attendances?: AttendanceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AttachmentUpsertWithWhereUniqueWithoutLeaveRequestInput = {
@@ -9614,22 +7777,22 @@ export namespace Prisma {
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutLeaveRequestsInput
-    team: TeamCreateNestedOneWithoutLeaveRequestsInput
   }
 
   export type LeaveRequestUncheckedCreateWithoutAttachmentsInput = {
     id?: string
     userId: string
-    teamId: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
@@ -9658,22 +7821,22 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLeaveRequestsNestedInput
-    team?: TeamUpdateOneRequiredWithoutLeaveRequestsNestedInput
   }
 
   export type LeaveRequestUncheckedUpdateWithoutAttachmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9681,26 +7844,84 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TeamCreateManyManagerInput = {
+  export type UserCreateWithoutAttendancesInput = {
     id?: string
-    name: string
+    username: string
+    email: string
+    firstName: string
+    lastName: string
+    password: string
+    role: string
+    department: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutUserInput
   }
 
-  export type TeamMemberCreateManyUserInput = {
+  export type UserUncheckedCreateWithoutAttendancesInput = {
     id?: string
-    teamId: string
-    joinedAt?: Date | string
-    isActive?: boolean
+    username: string
+    email: string
+    firstName: string
+    lastName: string
+    password: string
+    role: string
+    department: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAttendancesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+  }
+
+  export type UserUpsertWithoutAttendancesInput = {
+    update: XOR<UserUpdateWithoutAttendancesInput, UserUncheckedUpdateWithoutAttendancesInput>
+    create: XOR<UserCreateWithoutAttendancesInput, UserUncheckedCreateWithoutAttendancesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAttendancesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAttendancesInput, UserUncheckedUpdateWithoutAttendancesInput>
+  }
+
+  export type UserUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveRequests?: LeaveRequestUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAttendancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    department?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LeaveRequestCreateManyUserInput = {
     id?: string
-    teamId: string
     startDate: Date | string
     endDate: Date | string
     reason: string
+    type: string
     status?: string
     approvedBy?: string | null
     comments?: string | null
@@ -9708,50 +7929,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TeamUpdateWithoutManagerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leaveRequests?: LeaveRequestUpdateManyWithoutTeamNestedInput
-    members?: TeamMemberUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateWithoutManagerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutTeamNestedInput
-    members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
-  }
-
-  export type TeamUncheckedUpdateManyWithoutManagerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TeamMemberUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    team?: TeamUpdateOneRequiredWithoutMembersNestedInput
-  }
-
-  export type TeamMemberUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type TeamMemberUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+  export type AttendanceCreateManyUserInput = {
+    id?: string
+    date: Date | string
+    status: string
+    markedBy: string
+    timeMarked?: Date | string
+    createdAt?: Date | string
   }
 
   export type LeaveRequestUpdateWithoutUserInput = {
@@ -9759,21 +7943,21 @@ export namespace Prisma {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    team?: TeamUpdateOneRequiredWithoutLeaveRequestsNestedInput
     attachments?: AttachmentUpdateManyWithoutLeaveRequestNestedInput
   }
 
   export type LeaveRequestUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9784,10 +7968,10 @@ export namespace Prisma {
 
   export type LeaveRequestUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    teamId?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     comments?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9795,86 +7979,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type LeaveRequestCreateManyTeamInput = {
-    id?: string
-    userId: string
-    startDate: Date | string
-    endDate: Date | string
-    reason: string
-    status?: string
-    approvedBy?: string | null
-    comments?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TeamMemberCreateManyTeamInput = {
-    id?: string
-    userId: string
-    joinedAt?: Date | string
-    isActive?: boolean
-  }
-
-  export type LeaveRequestUpdateWithoutTeamInput = {
+  export type AttendanceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
-    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutLeaveRequestsNestedInput
-    attachments?: AttachmentUpdateManyWithoutLeaveRequestNestedInput
   }
 
-  export type LeaveRequestUncheckedUpdateWithoutTeamInput = {
+  export type AttendanceUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
-    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    attachments?: AttachmentUncheckedUpdateManyWithoutLeaveRequestNestedInput
   }
 
-  export type LeaveRequestUncheckedUpdateManyWithoutTeamInput = {
+  export type AttendanceUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
-    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
-    comments?: NullableStringFieldUpdateOperationsInput | string | null
+    markedBy?: StringFieldUpdateOperationsInput | string
+    timeMarked?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TeamMemberUpdateWithoutTeamInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutTeamsNestedInput
-  }
-
-  export type TeamMemberUncheckedUpdateWithoutTeamInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type TeamMemberUncheckedUpdateManyWithoutTeamInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AttachmentCreateManyLeaveRequestInput = {
@@ -9931,10 +8060,6 @@ export namespace Prisma {
      */
     export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use TeamCountOutputTypeDefaultArgs instead
-     */
-    export type TeamCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TeamCountOutputTypeDefaultArgs<ExtArgs>
-    /**
      * @deprecated Use LeaveRequestCountOutputTypeDefaultArgs instead
      */
     export type LeaveRequestCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = LeaveRequestCountOutputTypeDefaultArgs<ExtArgs>
@@ -9942,14 +8067,6 @@ export namespace Prisma {
      * @deprecated Use UserDefaultArgs instead
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TeamDefaultArgs instead
-     */
-    export type TeamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TeamDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use TeamMemberDefaultArgs instead
-     */
-    export type TeamMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TeamMemberDefaultArgs<ExtArgs>
     /**
      * @deprecated Use LeaveRequestDefaultArgs instead
      */
@@ -9962,6 +8079,10 @@ export namespace Prisma {
      * @deprecated Use TaskDefaultArgs instead
      */
     export type TaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TaskDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AttendanceDefaultArgs instead
+     */
+    export type AttendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AttendanceDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

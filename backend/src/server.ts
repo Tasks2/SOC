@@ -6,7 +6,9 @@ import { PrismaClient } from '@prisma/client';
 import sequelize from "./config/database";
 import taskRoutes from './routes/taskRoutes';
 import userRoutes from './routes/userRoutes';
-
+import authRoutes from './routes/authRoutes';
+import leaveRoutes from './routes/leaveRoutes';
+import attendanceRoutes from "./routes/attendanceRoutes";
 import "./models/User"; // Ensure model is loaded
 
 // Load env vars
@@ -27,6 +29,9 @@ app.use('/api/tasks', taskRoutes);
 // });
 
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/leaves', leaveRoutes);
+app.use("/api/attendance", attendanceRoutes);
 
 // Start server
 const server = app.listen(PORT, () => {

@@ -12,55 +12,7 @@ import jsPDF from "jspdf";
 import { useEffect } from "react";
 
 
-// const Attendance = () => {
-//   const [attendanceData, setAttendanceData] = useState([
-//     { id: 1, name: "John Doe", status: "present", markedBy: "Self", time: "08:30", lastDutyDate: "2024-01-10", dutyCount: 3 },
-//     { id: 2, name: "Jane Smith", status: "on_duty", markedBy: "John Doe", time: "08:45", lastDutyDate: "2024-01-12", dutyCount: 2 },
-//     { id: 3, name: "Mike Johnson", status: "on_leave", markedBy: "Auto", time: "Auto", lastDutyDate: "2024-01-08", dutyCount: 4 },
-//     { id: 4, name: "Sarah Davis", status: "present", markedBy: "Jane Smith", time: "09:00", lastDutyDate: "2024-01-14", dutyCount: 1 },
-//     { id: 5, name: "Tom Wilson", status: "", markedBy: "", time: "", dutyCount: 3 },
-//   ]);
 
-//   const isMarkingWindow = true; // Simulate 6AM-10AM window
-
-//   const statusOptions = [
-//     { value: "present", label: "✅ Present Today", color: "status-present", bgColor: "bg-emerald-500" },
-//     { value: "on_duty", label: "📍 On Duty (Outside Office)", color: "status-duty", bgColor: "bg-blue-500" },
-//     { value: "on_leave", label: "🌴 On Leave Today", color: "status-leave", bgColor: "bg-amber-500" },
-//     { value: "off_today", label: "💤 Off Today", color: "status-off", bgColor: "bg-slate-500" },
-//   ];
-
-//   const handleStatusChange = (personId: number, newStatus: string) => {
-//     if (!isMarkingWindow) {
-//       toast({
-//         title: "⏰ Marking Window Closed",
-//         description: "Attendance can only be marked between 6AM and 10AM",
-//         variant: "destructive",
-//       });
-//       return;
-//     }
-
-//     setAttendanceData(prev => 
-//       prev.map(person => 
-//         person.id === personId 
-//           ? { ...person, status: newStatus, markedBy: "John Doe", time: "09:15" }
-//           : person
-//       )
-//     );
-
-//     const statusConfig = statusOptions.find(s => s.value === newStatus);
-//     toast({
-//       title: "✅ Status Updated",
-//       description: `Updated to ${statusConfig?.label} successfully`,
-//     });
-//   };
-
-  // const handleExportPDF = () => {
-  //   toast({
-  //     title: "📄 PDF Export",
-  //     description: "Generating attendance report...",
-  //   });
-  // };
 const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,7 +30,7 @@ const Attendance = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("/api/users");
+        const res = await fetch("/api/attendance/team");
         const users = await res.json();
         // Initialize attendance data with users from backend
         setAttendanceData(
@@ -105,30 +57,36 @@ const Attendance = () => {
     fetchUsers();
   }, []);
 
-  const handleStatusChange = (personId: number, newStatus: string) => {
-    if (!isMarkingWindow) {
-      toast({
-        title: "⏰ Marking Window Closed",
-        description: "Attendance can only be marked between 6AM and 10AM",
-        variant: "destructive",
-      });
-      return;
+ 
+const handleStatusChange = async (personId, newStatus) => {
+  const payload = {
+    userId: personId.toString(),   // ✅ must be string
+    status: newStatus,
+    markedBy: "Admin",             // ✅ string
+  };
+
+  console.log("Sending attendance mark payload:", payload);
+
+  try {
+    const response = await fetch("/api/attendance/mark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to mark attendance");
     }
 
-    setAttendanceData(prev => 
-      prev.map(person => 
-        person.id === personId 
-          ? { ...person, status: newStatus, markedBy: "John Doe", time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
-          : person
-      )
-    );
+    const data = await response.json();
+    console.log("Attendance marked:", data);
+  } catch (error) {
+    console.error("Error in attendance marking:", error);
+  }
+};
 
-    const statusConfig = statusOptions.find(s => s.value === newStatus);
-    toast({
-      title: "✅ Status Updated",
-      description: `Updated to ${statusConfig?.label} successfully`,
-    });
-  };
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
@@ -175,17 +133,44 @@ const Attendance = () => {
     .filter(person => person.status === 'present' || person.status === 'on_duty')
     .map(person => person.name);
 
-  const getAttendanceStats = () => {
-    const total = attendanceData.length;
-    const present = attendanceData.filter(p => p.status === 'present').length;
-    const onDuty = attendanceData.filter(p => p.status === 'on_duty').length;
-    const onLeave = attendanceData.filter(p => p.status === 'on_leave').length;
-    const unmarked = attendanceData.filter(p => !p.status).length;
+  // const getAttendanceStats = () => {
+  //   const total = attendanceData.length;
+  //   const present = attendanceData.filter(p => p.status === 'present').length;
+  //   const onDuty = attendanceData.filter(p => p.status === 'on_duty').length;
+  //   const onLeave = attendanceData.filter(p => p.status === 'on_leave').length;
+  //   const unmarked = attendanceData.filter(p => !p.status).length;
     
-    return { total, present, onDuty, onLeave, unmarked };
+  //   return { total, present, onDuty, onLeave, unmarked };
+  // };
+
+  // const stats = getAttendanceStats();
+  const [stats, setStats] = useState({
+  total: 0,
+  present: 0,
+  onDuty: 0,
+  onLeave: 0,
+  unmarked: 0,
+});
+
+useEffect(() => {
+  const fetchSummary = async () => {
+    try {
+      const res = await fetch("/api/attendance/summary");
+      if (!res.ok) throw new Error("Failed to fetch summary");
+      const data = await res.json();
+      setStats(data);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Could not load attendance summary.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const stats = getAttendanceStats();
+  fetchSummary();
+}, []);
+
 
   return (
     <div className="space-y-6 animate-fade-in">

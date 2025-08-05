@@ -70,7 +70,7 @@ const LeaveManagement = () => {
     //   description: "Your leave request has been submitted for approval",
     // });
     const userId = "CURRENT_USER_ID"; // Replace with actual user ID
-  const teamId = "CURRENT_TEAM_ID"; // Replace with actual team ID
+  //const teamId = "CURRENT_TEAM_ID"; // Replace with actual team ID
 
   try {
     const response = await fetch("/api/leaves/apply", {
@@ -78,7 +78,6 @@ const LeaveManagement = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         // userId,
-        // teamId,
         startDate: newLeave.startDate,
         endDate: newLeave.endDate,
         reason: newLeave.reason,

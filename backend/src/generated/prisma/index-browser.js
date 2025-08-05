@@ -135,29 +135,13 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.TeamScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  managerId: 'managerId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.TeamMemberScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  teamId: 'teamId',
-  joinedAt: 'joinedAt',
-  isActive: 'isActive'
-};
-
 exports.Prisma.LeaveRequestScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  teamId: 'teamId',
   startDate: 'startDate',
   endDate: 'endDate',
   reason: 'reason',
+  type: 'type',
   status: 'status',
   approvedBy: 'approvedBy',
   comments: 'comments',
@@ -185,6 +169,16 @@ exports.Prisma.TaskScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AttendanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  status: 'status',
+  markedBy: 'markedBy',
+  timeMarked: 'timeMarked',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,11 +192,10 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Team: 'Team',
-  TeamMember: 'TeamMember',
   LeaveRequest: 'LeaveRequest',
   Attachment: 'Attachment',
-  Task: 'Task'
+  Task: 'Task',
+  Attendance: 'Attendance'
 };
 
 /**
