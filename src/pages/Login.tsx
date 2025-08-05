@@ -14,35 +14,54 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    // Simulate authentication
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (username && password) {
-      toast({
-        title: "Login Successful",
-        description: "Welcome to SOC Portal",
-      });
-      
-      // Simulate different user roles
-      if (username.toLowerCase().includes('admin')) {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
-    } else {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
       toast({
         title: "Login Failed",
-        description: "Please check your credentials",
+        description: data.message || "Invalid credentials",
         variant: "destructive",
       });
+      setLoading(false);
+      return;
     }
-    
-    setLoading(false);
-  };
+
+    // Save user in localStorage
+    localStorage.setItem("user", JSON.stringify(data));
+
+    toast({
+      title: "Login Successful",
+      description: `Welcome ${data.firstName}`,
+    });
+
+    if (data.role === "admin" || data.role === "manager") {
+      navigate("/admin");
+    } else {
+      navigate("/dashboard");
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    toast({
+      title: "Login Failed",
+      description: "Server error",
+      variant: "destructive",
+    });
+  }
+
+  setLoading(false);
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100">

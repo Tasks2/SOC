@@ -57,12 +57,13 @@ const Attendance = () => {
     fetchUsers();
   }, []);
 
- 
+ const user = JSON.parse(localStorage.getItem("user") || "{}");
+
 const handleStatusChange = async (personId, newStatus) => {
   const payload = {
     userId: personId.toString(),   // ✅ must be string
     status: newStatus,
-    markedBy: "Admin",             // ✅ string
+    markedBy: user.username || "Unknown"            // ✅ string
   };
 
   console.log("Sending attendance mark payload:", payload);
@@ -82,6 +83,18 @@ const handleStatusChange = async (personId, newStatus) => {
 
     const data = await response.json();
     console.log("Attendance marked:", data);
+    setAttendanceData((prevData) =>
+      prevData.map((person) =>
+        person.id === personId
+          ? {
+              ...person,
+              status: newStatus,
+              markedBy: payload.markedBy,
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            }
+          : person
+      )
+    );
   } catch (error) {
     console.error("Error in attendance marking:", error);
   }
@@ -133,17 +146,7 @@ const handleStatusChange = async (personId, newStatus) => {
     .filter(person => person.status === 'present' || person.status === 'on_duty')
     .map(person => person.name);
 
-  // const getAttendanceStats = () => {
-  //   const total = attendanceData.length;
-  //   const present = attendanceData.filter(p => p.status === 'present').length;
-  //   const onDuty = attendanceData.filter(p => p.status === 'on_duty').length;
-  //   const onLeave = attendanceData.filter(p => p.status === 'on_leave').length;
-  //   const unmarked = attendanceData.filter(p => !p.status).length;
-    
-  //   return { total, present, onDuty, onLeave, unmarked };
-  // };
-
-  // const stats = getAttendanceStats();
+  
   const [stats, setStats] = useState({
   total: 0,
   present: 0,

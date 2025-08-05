@@ -4,15 +4,40 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Users, Calendar, Clock, FileText, AlertCircle, CheckCircle, Shield, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const stats = [
-    { title: "Total Staff", value: "24", icon: Users, color: "bg-blue-500" },
-    { title: "Present Today", value: "18", icon: CheckCircle, color: "bg-green-500" },
-    { title: "On Leave", value: "4", icon: Calendar, color: "bg-yellow-500" },
-    { title: "Absent", value: "2", icon: AlertCircle, color: "bg-red-500" },
-  ];
+  // const stats = [
+  //   { title: "Total Staff", value: "24", icon: Users, color: "bg-blue-500" },
+  //   { title: "Present Today", value: "18", icon: CheckCircle, color: "bg-green-500" },
+  //   { title: "On Leave", value: "4", icon: Calendar, color: "bg-yellow-500" },
+  //   { title: "Absent", value: "2", icon: AlertCircle, color: "bg-red-500" },
+  // ];
+  const [attendanceStats, setAttendanceStats] = useState({
+  total: 0,
+  present: 0,
+  onLeave: 0,
+  offToday: 0,
+  onDuty: 0,
+  unmarked: 0,
+  loading: true,
+});
+
+useEffect(() => {
+  const fetchSummary = async () => {
+    try {
+      const res = await axios.get("/api/attendance/summary");
+      setAttendanceStats({ ...res.data, loading: false });
+    } catch (error) {
+      console.error("Error fetching attendance summary:", error);
+      setAttendanceStats((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  fetchSummary();
+}, []);
 
   const taskStats = [
     { title: "Active Tasks", value: "12", color: "bg-blue-600" },
@@ -45,7 +70,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
           <Card key={stat.title} className="border-green-200">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -59,7 +84,62 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         ))}
-      </div>
+      </div> */}
+      {attendanceStats.loading ? (
+  <div className="col-span-4 text-center text-green-700">Loading attendance data...</div>
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <Card className="border-green-200">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-sm font-medium text-green-800">Total Staff</CardTitle>
+        <div className="p-2 rounded-full bg-blue-500">
+          <Users className="h-4 w-4 text-white" />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold text-green-900">{attendanceStats.total}</div>
+      </CardContent>
+    </Card>
+
+    <Card className="border-green-200">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-sm font-medium text-green-800">Present Today</CardTitle>
+        <div className="p-2 rounded-full bg-green-500">
+          <CheckCircle className="h-4 w-4 text-white" />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold text-green-900">{attendanceStats.present}</div>
+      </CardContent>
+    </Card>
+
+    <Card className="border-green-200">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-sm font-medium text-green-800">On Leave</CardTitle>
+        <div className="p-2 rounded-full bg-yellow-500">
+          <Calendar className="h-4 w-4 text-white" />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold text-green-900">{attendanceStats.onLeave}</div>
+      </CardContent>
+    </Card>
+
+    <Card className="border-green-200">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-sm font-medium text-green-800">Absent</CardTitle>
+        <div className="p-2 rounded-full bg-red-500">
+          <AlertCircle className="h-4 w-4 text-white" />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold text-green-900">{attendanceStats.unmarked}</div>
+      </CardContent>
+    </Card>
+  </div>
+)}
+
+
 
       {/* Current Duty Officer */}
       <Card className="border-green-200">
